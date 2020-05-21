@@ -1,0 +1,949 @@
+ <xml>
+   <type name="INS" class="com.emis.app.entity.emisIns" table="INS_H">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <Collection type="INS_D"/>
+     <field name="IN_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="IN_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillDate"/>
+     <field name="V_NO" type="varchar" primarykey="false" objfield="VendorNo"/>
+     <field name="SH_NO" type="varchar" primarykey="false" objfield="ShipNo"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="SH_CTN_NO" type="varchar" primarykey="false" objfield="PackageNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="INS_D" class="com.emis.app.entity.emisInsDetailItem" table="INS_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="IN_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="smallint" primarykey="true" objfield="RecNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="PO_NO" type="varchar" primarykey="false" objfield="PoNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" changeable="true" objfield="PDNo"/>
+     <field name="IN_CHK_Q" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="IN_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="PV_RATE" type="int" primarykey="false" objfield="StockRate"/>
+     <field name="PO_UID" type="int" primarykey="false" objfield="PoUnique"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" objfield="PTypeE"/>
+
+   </type>
+
+  <type name="DISP_M" class="com.emis.app.entity.emisDisp" table="DISPATCH_H">
+    <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+    <Collection type="DISPATCH_D"/>
+    <field name="DS_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+    <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+    <field name="P_NO" type="varchar" primarykey="false" objfield="P_NO"/>
+    <field name="BUYER" type="varchar" primarykey="false" objfield="BUYER"/>
+    <field name="DS_TYPE" type="varchar" primarykey="false" objfield="DS_TYPE"/>
+    <field name="DS_TOTAL_QTY" type="int" primarykey="false" changeable="true" objfield="DS_TOTAL_QTY"/>
+    <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+    <field name="FLS_NO" type="varchar" primarykey="false" changeable="true" objfield="BillFlowStateNo"/>
+    <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+    <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+    <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+    <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+    <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+    <field name="DS_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillDate"/>
+  </type>
+
+
+  <type name="DISPATCH_D" class="com.emis.app.entity.emisDispatchDetailItem" table="DISPATCH_D">
+    <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+    <field name="DS_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+    <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+    <field name="DSD_S_NO" type="varchar" primarykey="true" changeable="true" objfield="StoreNo"/>
+    <field name="S_NO_OUT" type="varchar" primarykey="false" objfield="S_NO_OUT"/>
+    <field name="V_NO" type="varchar" primarykey="false" objfield="V_NO"/>
+    <field name="P_SALE" type="int" primarykey="false" objfield="P_SALE"/>
+    <field name="P_STOCK" type="varchar" primarykey="false" objfield="P_STOCK"/>
+    <field name="SUPP_V_NO" type="varchar" primarykey="false" changeable="true" objfield="SUPP_V_NO"/>
+    <field name="SUPP_COST" type="decimal" primarykey="false" objfield="SUPP_COST"/>
+    <field name="DSD_QTY" type="int" primarykey="false" changeable="true" objfield="DSD_QTY"/>
+    <field name="DSD_RATIO" type="int" primarykey="false" changeable="true" objfield="DSD_RATIO"/>
+    <field name="PS_COST" type="decimal" primarykey="false" changeable="true" objfield="PS_COST"/>
+    <field name="DSD_RATE" type="decimal" primarykey="false" objfield="DSD_RATE"/>
+  </type>
+   <type name="SYS_FL" class=" com.emis.app.entity.common.emisFlowLog" table="FLOWLOG">
+
+     <Mapper>com.emis.app.mapper.emisFlowLogRDBMapper</Mapper>
+     <field name="FLL_NO" type="varchar" primarykey="true" objfield="FLL_NO"/>
+     <field name="FLF_NO" type="varchar" primarykey="false" objfield="FLF_NO"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="FLD_NO"/>
+     <field name="FLS_NO_S" type="varchar" primarykey="false" objfield="FLS_NO_S"/>
+     <field name="FLS_NO_T" type="varchar" primarykey="false" objfield="FLS_NO_T"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="CRE_USER"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="CRE_DATE"/>
+     <field name="REMARK" type="varchar" primarykey="false" objfield="REMARK"/>
+
+   </type>
+
+   <type name="BACKHQ" class="com.emis.app.entity.emisBackHq" table="BACK_H">
+     <Collection type="BACK_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="BA_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_OUT" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+     <field name="BA_DATE" type="varchar" primarykey="false" objfield="BillDate"/>
+     <field name="S_NO_IN" type="varchar" primarykey="false" objfield="InStockNo"/>
+     <field name="V_NO" type="varchar" primarykey="false" objfield="VendorNo"/>
+     <field name="BA_CTN_NO" type="varchar" primarykey="false" objfield="PackageNo"/>
+   </type>
+
+   <type name="BACK" class="com.emis.app.entity.emisBack" table="BACK_H">
+     <Collection type="BACK_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="BA_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_OUT" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="BA_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillDate"/>
+     <field name="BA_CONF_D" type="varchar" primarykey="false" changeable="true" objfield="InStockApproveDate"/>
+     <field name="S_NO_IN" type="varchar" primarykey="false" objfield="InStockNo"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+     <field name="BA_CTN_NO" type="varchar" primarykey="false"  changeable="true"  objfield="PackageNo"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="BACK_D" class="com.emis.app.entity.emisBackDetailItem" table="BACK_D">
+
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+
+     <field name="BA_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_OUT" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="smallint" primarykey="true" objfield="RecNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="BA_APP_Q" type="int" primarykey="false" changeable="true" objfield="ApproveQuantity"/>
+     <field name="BA_CHK_Q" type="int" primarykey="false" changeable="true" objfield="CheckQuantity"/>
+     <field name="BA_CNF_Q" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="BA_REASON" type="varchar" primarykey="false" changeable="true" objfield="BackReason"/>
+     <field name="BA_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="BA_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" objfield="PTypeE"/>
+
+   </type>
+
+   <type name="TRANS" class="com.emis.app.entity.emisTrans" table="TRANS_H">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <Collection type="TRANS_D"/>
+     <field name="TR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_RC" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="S_NO_IS" type="varchar" primarykey="false" changeable="true" objfield="S_NO_IS"/>
+     <field name="S_NO_RQ" type="varchar" primarykey="false" objfield="S_NO_RQ"/>
+     <field name="TR_DATE" type="varchar" changeable="true" objfield="BillDate"/>
+     <field name="TR_OUT_D" type="varchar" primarykey="false" objfield="TR_OUT_D"/>
+     <field name="TR_IN_D" type="varchar" primarykey="false" objfield="TR_IN_D"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" changeable="true" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="TRANS_D" class="com.emis.app.entity.emisTransDetailItem" table="TRANS_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="TR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_RC" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="TR_APP_Q" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="TR_OUT_Q" type="int" primarykey="false" changeable="true" objfield="TR_OUT_Q"/>
+     <field name="TR_CONF_Q" type="int" primarykey="false" changeable="true" objfield="TR_CONF_Q"/>
+     <field name="TR_IN_Q" type="int" primarykey="false"  changeable="true" objfield="TR_IN_Q"/>
+     <field name="TR_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+     <field name="TR_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" objfield="PTypeE"/>
+   </type>
+
+
+   <type name="COUNT" class="com.emis.app.entity.emisCount" table="COUNT_H">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <Collection type="COUNT_D"/>
+     <field name="CO_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="CO_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillDate"/>
+     <field name="RA_NO" type="varchar" primarykey="false" objfield="RA_NO"/>
+     <field name="CO_TYPE" type="varchar" primarykey="false" changeable="true" objfield="CountType"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="COUNT_D" class="com.emis.app.entity.emisCountDetailItem" table="COUNT_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="CO_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+
+     <field name="CO_DATE" type="varchar" primarykey="false" objfield="CountDate"/>
+     <field name="RA_NO" type="varchar" primarykey="false" objfield="RA_NO"/>
+     <field name="RA_LAYER" type="int" primarykey="false" objfield="RA_LAYER"/>
+     <field name="RA_RECNO" type="int" primarykey="false" objfield="RA_RECNO"/>
+     <field name="P_QTY" type="int" primarykey="false" objfield="P_QTY"/>
+     <field name="CO_QTY" type="int" primarykey="false" changeable="true" objfield="CO_QTY"/>
+   </type>
+
+   <type name="COUNT_DIFF" class="com.emis.app.entity.emisCountDiff" table="COUNT_DIFF">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="CO_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="CO_CLS_D" type="varchar" primarykey="false" objfield="CountCloseDate"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="P_QTY" type="int" primarykey="false" objfield="P_QTY"/>
+     <field name="CO_QTY" type="int" primarykey="false" changeable="true" objfield="CO_QTY"/>
+     <field name="CO_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="CO_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+   </type>
+
+   <type name="PART_S" class="com.emis.app.entity.part.emisPartStockItem" table="PART_S">
+     <Mapper>com.emis.app.mapper.emisPartStockItemRDBMapper</Mapper>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="S_NO"/>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="P_NO"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PD_NO"/>
+     <field name="PS_QTY" type="int" primarykey="false" objfield="PS_QTY"/>
+     <field name="PS_COST" type="decimal" primarykey="false" objfield="PS_COST"/>
+     <field name="PS_SAFE_D" type="varchar" primarykey="false" objfield="PS_SAFE_D"/>
+     <field name="PS_SAFE_H" type="int" primarykey="false" objfield="PS_SAFE_H"/>
+     <field name="PS_SAFE_L" type="int" primarykey="false" objfield="PS_SAFE_L"/>
+     <field name="PS_SAFE_O" type="int" primarykey="false" objfield="PS_SAFE_O"/>
+     <field name="PS_PEND_O" type="int" primarykey="false" objfield="PS_PEND_O"/>
+     <field name="PS_PEND_TI" type="int" primarykey="false" objfield="PS_PEND_TI"/>
+     <field name="PS_PEND_TO" type="int" primarykey="false" objfield="PS_PEND_TO"/>
+     <field name="PS_PEND_S" type="int" primarykey="false" objfield="PS_PEND_S"/>
+     <field name="PS_PEND_LO" type="int" primarykey="false" objfield="PS_PEND_LO"/>
+     <field name="PS_PEND_LI" type="int" primarykey="false" objfield="PS_PEND_LI"/>
+     <field name="PS_ONHAND" type="int" primarykey="false" objfield="PS_ONHAND"/>
+     <field name="PS_ORD_D" type="varchar" primarykey="false" objfield="PS_ORD_D"/>
+     <field name="PS_ORD_Q" type="int" primarykey="false" objfield="PS_ORD_Q"/>
+     <field name="PS_IN_D" type="varchar" primarykey="false" objfield="PS_IN_D"/>
+     <field name="PS_IN_Q" type="int" primarykey="false" objfield="PS_IN_Q"/>
+     <field name="PS_IN_P" type="decimal" primarykey="false" objfield="PS_IN_P"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="CRE_USER"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="CRE_DATE"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" objfield="UPD_USER"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="UPD_DATE"/>
+     <field name="REMARK" type="varchar" primarykey="false" objfield="REMARK"/>
+   </type>
+
+   <type name="PART" class="com.emis.app.entity.part.emisPartPersistentObject" table="vPART_BUYER">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="P_NO"/>
+     <field name="P_PRICE" type="decimal" primarykey="false" objfield="Price1"/>
+     <field name="P_PRICE2" type="decimal" primarykey="false" objfield="Price2"/>
+     <field name="P_PRICE3" type="decimal" primarykey="false" objfield="Price3"/>
+     <field name="P_PRICE4" type="decimal" primarykey="false" objfield="Price4"/>
+     <field name="P_PRICE5" type="decimal" primarykey="false" objfield="Price5"/>
+     <field name="P_PRICE6" type="decimal" primarykey="false" objfield="Price6"/>
+     <field name="UN_NO_S" type="varchar" primarykey="false" objfield="UN_NO_S"/>
+     <field name="P_PU" type="varchar" primarykey="false" objfield="P_PU"/>
+     <field name="BUYER" type="varchar" primarykey="false" objfield="PrimaryBuyer"/>
+     <field name="P_TAX" type="varchar" primarykey="false" objfield="TaxType"/>
+     <field name="P_KIND" type="varchar" primarykey="false" objfield="CostType"/>
+   </type>
+
+   <type name="PARTVS" class="com.emis.app.entity.part.emisPartVSPersistentObject" table="vPART_V_S">
+     <Mapper>com.emis.app.mapper.emisPartVSRDBMapper</Mapper>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="V_NO" type="varchar" primarykey="true" objfield="VendorNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="SUPP_V_NO" type="varchar" primarykey="false" objfield="SupplyVendorNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="Unit"/>
+     <field name="PV_RATE" type="int" primarykey="false" objfield="StockRate"/>
+     <field name="PV_LOW" type="int" primarykey="false" objfield="MinPoQuantity"/>
+     <field name="PV_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+     <field name="PV_GIFT" type="varchar" primarykey="false" objfield="FreeProductNo"/>
+     <field name="PV_GIFT_Q" type="int" primarykey="false" objfield="FreeQuantity"/>
+     <field name="PV_GIFT_BD" type="varchar" primarykey="false" objfield="FreeBeginDate"/>
+     <field name="PV_GIFT_ED" type="varchar" primarykey="false" objfield="FreeEndDate"/>
+     <field name="PV_GIFT_BQ" type="int" primarykey="false" objfield="MinFreePoQuantity"/>
+     <field name="PV_QTY" type="int" primarykey="false" objfield="MinPmPoQuantity"/>
+     <field name="PV_SP_PRICE" type="decimal" primarykey="false" objfield="PmPrice"/>
+     <field name="PV_SP_BEGIN_D" type="varchar" primarykey="false" objfield="PmBeginDate"/>
+     <field name="PV_SP_END_D" type="varchar" primarykey="false" objfield="PmEndDate"/>
+     <field name="PV_IS_ORDER" type="varchar" primarykey="false" objfield="PoFlag"/>
+     <field name="PV_IS_RETURN" type="varchar" primarykey="false" objfield="ReturnFlag"/>
+     <field name="PV_IS_VENDOR" type="varchar" primarykey="false" objfield="PrimaryVendor"/>
+     <field name="PV_STATUS" type="varchar" primarykey="false" objfield="ProductStatus"/>
+     <field name="PV_LOW_P" type="decimal" primarykey="false" objfield="LowestPoPrice"/>
+     <field name="PV_LOW_D" type="varchar" primarykey="false" objfield="LowestPoDate"/>
+     <field name="PV_LST_P" type="decimal" primarykey="false" objfield="LastPoPrice"/>
+     <field name="PV_LST_D" type="varchar" primarykey="false" objfield="LastPoDate"/>
+   </type>
+
+   <type name="PART_D" class="com.emis.app.esn.entity.part.emisPartStockDetailItem" table="PART_S">
+     <Mapper>com.emis.app.mapper.emisPartStockDetailItemRDBMapper</Mapper>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="S_NO"/>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="P_NO"/>
+     <field name="PD_NO" type="varchar" primarykey="true" objfield="PD_NO"/>
+     <field name="PS_QTY" type="int" primarykey="false" objfield="PS_QTY"/>
+     <field name="PS_COST" type="decimal" primarykey="false" objfield="PS_COST"/>
+     <field name="PS_SAFE_D" type="varchar" primarykey="false" objfield="PS_SAFE_D"/>
+     <field name="PS_SAFE_H" type="int" primarykey="false" objfield="PS_SAFE_H"/>
+     <field name="PS_SAFE_L" type="int" primarykey="false" objfield="PS_SAFE_L"/>
+     <field name="PS_SAFE_O" type="int" primarykey="false" objfield="PS_SAFE_O"/>
+     <field name="PS_PEND_O" type="int" primarykey="false" objfield="PS_PEND_O"/>
+     <field name="PS_PEND_TI" type="int" primarykey="false" objfield="PS_PEND_TI"/>
+     <field name="PS_PEND_TO" type="int" primarykey="false" objfield="PS_PEND_TO"/>
+     <field name="PS_PEND_S" type="int" primarykey="false" objfield="PS_PEND_S"/>
+     <field name="PS_PEND_LO" type="int" primarykey="false" objfield="PS_PEND_LO"/>
+     <field name="PS_PEND_LI" type="int" primarykey="false" objfield="PS_PEND_LI"/>
+     <field name="PS_ONHAND" type="int" primarykey="false" objfield="PS_ONHAND"/>
+     <field name="PS_ORD_D" type="varchar" primarykey="false" objfield="PS_ORD_D"/>
+     <field name="PS_ORD_Q" type="int" primarykey="false" objfield="PS_ORD_Q"/>
+     <field name="PS_IN_D" type="varchar" primarykey="false" objfield="PS_IN_D"/>
+     <field name="PS_IN_Q" type="int" primarykey="false" objfield="PS_IN_Q"/>
+     <field name="PS_IN_P" type="decimal" primarykey="false" objfield="PS_IN_P"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="CRE_USER"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="CRE_DATE"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" objfield="UPD_USER"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="UPD_DATE"/>
+     <field name="REMARK" type="varchar" primarykey="false" objfield="REMARK"/>
+   </type>
+
+   <type name="SHIP" class="com.emis.app.entity.emisShip" table="SHIP_H">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <Collection type="SHIP_D"/>
+     <field name="SH_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_OUT" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="SH_DATE" type="varchar" primarykey="false" objfield="BillDate"/>
+     <field name="DLVR_DATE" type="varchar" primarykey="false" objfield="DeliverDate"/>
+     <field name="S_NO_IN" type="varchar" primarykey="false" objfield="InStockNo"/>
+     <field name="SH_ADDR" type="varchar" primarykey="false" objfield="ShipAddress"/>
+     <field name="SH_CTN_NO" type="varchar" primarykey="false" objfield="PackageNo"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+     <field name="PO_NO" type="varchar" primarykey="false" changeable="true" objfield="PoNo"/>
+   </type>
+
+   <type name="SHIP_D" class="com.emis.app.entity.emisShipDetailItem" table="SHIP_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="SH_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_OUT" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="PO_UID" type="smallint" primarykey="true" objfield="RecNo"/>
+     <field name="PO_NO" type="varchar" primarykey="false" objfield="PoNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="PV_RATE" type="int" primarykey="false" objfield="StockRate"/>
+     <field name="SH_QTY" type="int" primarykey="false" objfield="ApproveQuantity"/>
+     <field name="SH_SHIP_Q" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="SH_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+     <field name="SH_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" objfield="PTypeE"/>
+     <field name="REMARK" type="varchar" primarykey="false" objfield="Remark"/>
+
+   </type>
+
+   <type name="TRANSTEMP" class="com.emis.app.esn.entity.transtemp.emisTransTemp" table="TRANSTEMP">
+     <Mapper>com.emis.app.mapper.emisTransTempRDBMapper</Mapper>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="ST_KEY" type="varchar" primarykey="false" objfield="CreateUser"/>
+     <field name="TT_TYPE" type="varchar" primarykey="false" objfield="TransferType"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="TT_QTY" type="int" primarykey="false" objfield="TransferQuantity"/>
+     <field name="TT_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+     <field name="TT_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="PS_COST" type="decimal" primarykey="false" objfield="AvgCost"/>
+     <field name="PS_SAVE" type="int" primarykey="false" objfield="SafeStockQuantity"/>
+     <field name="PS_QTY" type="int" primarykey="false" objfield="StockQuantity"/>
+     <field name="PS_PEND_O" type="int" primarykey="false" objfield="OrderPendQuantity"/>
+     <field name="PS_PEND_TI" type="int" primarykey="false" objfield="InPendQuantity"/>
+     <field name="PS_PEND_TO" type="int" primarykey="false" objfield="OutPendQuantity"/>
+     <field name="PS_SAVE_O" type="int" primarykey="false" objfield="MinOrderQuantity"/>
+     <field name="TT_DATE" type="varchar" primarykey="false" objfield="CreateDate"/>
+   </type>
+
+
+   <type name="POR" class="com.emis.app.entity.emisPor" table="POR">
+     <Collection type="POR_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="POR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="OWNER_S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StockStoreNo"/>
+     <field name="POR_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillDate"/>
+     <field name="POR_TYPE" type="varchar" primarykey="false" objfield="PorType"/>
+     <field name="POR_KIND" type="varchar" primarykey="false" objfield="PorKind"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="POR_CONFIRM" type="varchar" primarykey="false" objfield="Approver"/>
+     <field name="POR_CONFIRM_D" type="varchar" primarykey="false" objfield="ApproveDate"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" objfield="BillModifier"/>
+   </type>
+
+   <type name="POR_D" class="com.emis.app.entity.emisPorDetailItem" table="PO_DETL">
+
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="POR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="OWNER_S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StockStoreNo"/>
+     <field name="V_NO" type="varchar" primarykey="false" objfield="VendorNo"/>
+     <field name="POR_TYPE" type="varchar" primarykey="false" objfield="PorType"/>
+     <field name="PD_DATE" type="varchar" primarykey="false" objfield="ExpectedDeliverDate"/>
+     <field name="DLVR_DATE" type="varchar" primarykey="false" changeable="true" objfield="DeliverDate"/>
+     <field name="SUPP_V_NO" type="varchar" primarykey="false" objfield="SupplyVendorNo"/>
+     <field name="SUPP_PO_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="PO_COST" type="decimal" primarykey="false" objfield="VendorCost"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="PO_QTY" type="int" primarykey="false" changeable="true" objfield="ApproveQuantity"/>
+     <field name="PO_UN_NO" type="varchar" primarykey="false" changeable="false" objfield="UnitNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="P_STOCK" type="varchar" primarykey="false" objfield="OverOrderFlag"/>
+     <field name="POR_QTY" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="P_IS_GIFT" type="varchar" primarykey="false" changeable="true" objfield="FreeFlag"/>
+     <field name="P_NO_REF" type="int" primarykey="false" changeable="true" objfield="FreeParent"/>
+     <field name="PO_RATE" type="int" primarykey="false" changeable="true" objfield="StockRate"/>
+     <field name="P_SALE" type="int" primarykey="false" objfield="RecentSales"/>
+     <field name="POR_REMARK" type="varchar" primarykey="false" changeable="true" objfield="Remark"/>
+     <field name="DLVR_DATE" type="varchar" primarykey="false" changeable="true" objfield="DeliverDate"/>
+     <field name="P_IS_CHKLIMIT" type="varchar" primarykey="false" objfield="CheckQuotaFlag"/>
+     <field name="PO_NO" type="varchar" primarykey="false" objfield="PoNo"/>
+     <field name="PO_UID" type="int" primarykey="false" autoincrement="true" objfield="PoUnique"/>
+     <field name="PO_BUYER" type="varchar" primarykey="false" objfield="Buyer"/>
+     <field name="BUYER" type="varchar" primarykey="false" objfield="PrimaryBuyer"/>
+     <field name="FLAG" type="varchar" primarykey="false" objfield="CurrentUserFlag"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" changeable="true" objfield="PTypeE"/>
+     <field name="POR_PRICE" type="decimal" primarykey="false" changeable="true" objfield="Price"/>
+   </type>
+
+
+   <type name="MM" class="com.emis.app.entity.emisMp" table="MM_H">
+     <Collection type="MM_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MM_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="G_NO" type="varchar" primarykey="false" changeable="true" objfield="StoreGroup"/>
+     <field name="PRM_NO" type="varchar" primarykey="false" objfield="PromotionNo"/>
+     <field name="PRM_TYPE" type="varchar" primarykey="false" changeable="true" objfield="PromotionType"/>
+     <field name="ICOST_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="InPriceBeginDate"/>
+     <field name="ICOST_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="InPriceEndDate"/>
+     <field name="MM_TYPE" type="varchar" primarykey="false" changeable="true" objfield="PricingType"/>
+     <field name="MM_KIND" type="varchar" primarykey="false" changeable="true" objfield="MixType"/>
+     <field name="MM_QTY" type="int" primarykey="false" changeable="true" objfield="MixQuantity"/>
+     <field name="MM_PRICE" type="decimal" primarykey="false" changeable="true" objfield="MixPrice"/>
+     <field name="MM_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginDate"/>
+     <field name="MM_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndDate"/>
+     <field name="MM_HOUR_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginHour"/>
+     <field name="MM_HOUR_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndHour"/>
+     <field name="MM_MINS_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginMin"/>
+     <field name="MM_MINS_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndMin"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="MM_D" class="com.emis.app.entity.emisMpDetailItem" table="MM_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MM_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="MMD_OPRICE" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice"/>
+     <field name="MMD_QTY" type="int" primarykey="false" changeable="true" objfield="Qunatity"/>
+     <field name="MMD_PRICE" type="decimal" primarykey="false" changeable="true" objfield="Price"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+     <field name="MMD_IPRICE" type="decimal" primarykey="false" changeable="true" objfield="SpCost"/>
+     <field name="EST_SALE" type="int" primarykey="false" changeable="true" objfield="EstimateSale"/>
+   </type>
+
+
+   <type name="MMPROD" class="com.emis.app.entity.emisMmprod" table="MMPROD_H">
+     <Collection type="MMPROD_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MM_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="G_NO" type="varchar" primarykey="false" changeable="true" objfield="StoreGroup"/>
+     <field name="PRM_NO" type="varchar" primarykey="false" objfield="PromotionNo"/>
+     <field name="PRM_TYPE" type="varchar" primarykey="false" changeable="true" objfield="PromotionType"/>
+     <field name="MM_TYPE" type="varchar" primarykey="false" changeable="true" objfield="PricingType"/>
+     <field name="MM_KIND" type="varchar" primarykey="false" changeable="true" objfield="MixType"/>
+     <field name="MM_QTY" type="int" primarykey="false" changeable="true" objfield="MixQuantity"/>
+     <field name="MM_PRICE" type="decimal" primarykey="false" changeable="true" objfield="MixPrice"/>
+     <field name="MM_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginDate"/>
+     <field name="MM_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndDate"/>
+     <field name="MM_HOUR_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginHour"/>
+     <field name="MM_HOUR_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndHour"/>
+     <field name="MM_MINS_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginMin"/>
+     <field name="MM_MINS_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndMin"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="MMPROD_D" class="com.emis.app.entity.emisMmprodDetailItem" table="MMPROD_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MM_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="P_PROD_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="MMD_OPRICE" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice"/>
+     <field name="MMD_QTY" type="int" primarykey="false" changeable="true" objfield="Qunatity"/>
+     <field name="MMD_PRICE" type="decimal" primarykey="false" changeable="true" objfield="Price"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+     <field name="MMD_IPRICE" type="decimal" primarykey="false" changeable="true" objfield="SpCost"/>
+     <field name="EST_SALE" type="int" primarykey="false" changeable="true" objfield="EstimateSale"/>
+   </type>
+
+
+   <type name="MHUGE" class="com.emis.app.entity.emisHugeMp" table="MHUGE_H">
+     <Collection type="MHUGE_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MH_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="G_NO" type="varchar" primarykey="false" changeable="true" objfield="StoreGroup"/>
+     <field name="PRM_NO" type="varchar" primarykey="false" objfield="PromotionNo"/>
+     <field name="PRM_TYPE" type="varchar" primarykey="false" objfield="PromotionType"/>
+     <field name="ICOST_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="InPriceBeginDate"/>
+     <field name="ICOST_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="InPriceEndDate"/>
+     <field name="MH_TYPE" type="varchar" primarykey="false" changeable="true" objfield="PricingType"/>
+     <field name="MH_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginDate"/>
+     <field name="MH_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndDate"/>
+     <field name="MH_HOUR_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginHour"/>
+     <field name="MH_HOUR_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndHour"/>
+     <field name="MH_MINS_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginMin"/>
+     <field name="MH_MINS_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndMin"/>
+     <field name="MH_QTY1" type="int" primarykey="false" changeable="true" objfield="MixQuantity1"/>
+     <field name="MH_PRICE1" type="decimal" primarykey="false" changeable="true" objfield="MixPrice1"/>
+     <field name="MH_DISC1" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount1"/>
+     <field name="MH_QTY2" type="int" primarykey="false" changeable="true" objfield="MixQuantity2"/>
+     <field name="MH_PRICE2" type="decimal" primarykey="false" changeable="true" objfield="MixPrice2"/>
+     <field name="MH_DISC2" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount2"/>
+     <field name="MH_QTY3" type="int" primarykey="false" changeable="true" objfield="MixQuantity3"/>
+     <field name="MH_PRICE3" type="decimal" primarykey="false" changeable="true" objfield="MixPrice3"/>
+     <field name="MH_DISC3" type="decimal" primarykey="false" objfield="MixDsicount3"/>
+     <field name="MH_QTY4" type="int" primarykey="false" changeable="true" objfield="MixQuantity4"/>
+     <field name="MH_PRICE4" type="decimal" primarykey="false" changeable="true" objfield="MixPrice4"/>
+     <field name="MH_DISC4" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount4"/>
+     <field name="MH_QTY5" type="int" primarykey="false" changeable="true" objfield="MixQuantity5"/>
+     <field name="MH_PRICE5" type="decimal" primarykey="false" changeable="true" objfield="MixPrice5"/>
+     <field name="MH_DISC5" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount5"/>
+     <field name="MH_QTY6" type="int" primarykey="false" changeable="true" objfield="MixQuantity6"/>
+     <field name="MH_PRICE6" type="decimal" primarykey="false" changeable="true" objfield="MixPrice6"/>
+     <field name="MH_DISC6" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount6"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="MHUGE_D" class="com.emis.app.entity.emisHugeMpDetialItem" table="MHUGE_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MH_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="MHD_OPRICE" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+     <field name="MHD_IPRICE" type="decimal" primarykey="false" changeable="true" objfield="SpCost"/>
+     <field name="EST_SALE" type="int" primarykey="false" changeable="true" objfield="EstimateSale"/>
+   </type>
+
+   <type name="PO" class="com.emis.app.entity.emisPo" table="PO">
+     <Collection type="PO_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="PO_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="PO_DATE" type="varchar" primarykey="false" objfield="BillDate"/>
+     <field name="V_NO" type="varchar" primarykey="false" objfield="VendorNo"/>
+     <field name="SUPP_V_NO" type="varchar" primarykey="false" objfield="SupplyVendorNo"/>
+     <field name="DLVR_DATE" type="varchar" primarykey="false" objfield="DeliverDate"/>
+     <field name="BUYER" type="varchar" primarykey="false" objfield="PrimaryBuyer"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="PO_TR_NO" type="varchar" primarykey="false" objfield="TransactionNo"/>
+     <field name="PO_CONFIRM" type="varchar" primarykey="false" objfield="Approver"/>
+     <field name="PO_CONFIRM_D" type="varchar" primarykey="false" objfield="ApproveDate"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+
+   </type>
+
+   <type name="PO_D" class="com.emis.app.entity.emisPoDetailItem" table="PO_DETL">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="PO_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="PO_UID" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="POR_NO" type="varchar" primarykey="false" objfield="PorNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="V_NO" type="varchar" primarykey="false" objfield="VendorNo"/>
+     <field name="SUPP_V_NO" type="varchar" primarykey="false" objfield="SupplyVendorNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="PO_UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="PO_RATE" type="int" primarykey="false" objfield="StockRate"/>
+     <field name="POR_QTY" type="int" primarykey="false" objfield="ApplyQuantity"/>
+     <field name="PO_QTY" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="PO_SHIP_QTY" type="int" primarykey="false" objfield="ShipQuantity"/>
+     <field name="PO_SHBK_QTY" type="int" primarykey="false" objfield="ShipBookQuantity"/>
+     <field name="PO_NI_QTY" type="int" primarykey="false" objfield="ShortageQuantity"/>
+     <field name="SUPP_PO_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="PO_COST" type="decimal" primarykey="false" objfield="VendorCost"/>
+     <field name="DLVR_DATE" type="varchar" primarykey="false" objfield="DeliverDate"/>
+     <field name="PO_REMARK" type="varchar" primarykey="false" changeable="true" objfield="Remark"/>
+     <field name="PO_PRN_NO" type="varchar" primarykey="false" objfield="PrintNo"/>
+     <field name="PO_BUYER" type="varchar" primarykey="false"  objfield="Buyer"/>
+     <field name="BUYER" type="varchar" primarykey="false" objfield="PrimaryBuyer"/>
+     <field name="P_NO_REF" type="int" primarykey="false" objfield="FreeParent"/>
+     <field name="P_IS_GIFT" type="varchar" primarykey="false" objfield="FreeFlag"/>
+     <field name="P_SALE" type="int" primarykey="false" objfield="RecentSales"/>
+     <field name="P_STOCK" type="varchar" primarykey="false" objfield="OverOrderFlag"/>
+     <field name="P_IS_CHKLIMIT" type="varchar" primarykey="false" objfield="CheckQuotaFlag"/>
+     <field name="FLAG" type="varchar" primarykey="false" objfield="CurrentUserFlag"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" objfield="PTypeE"/>
+     <field name="POR_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+   </type>
+
+   <type name="TRANOUT" class="com.emis.app.entity.emisTransOut" table="TRANS_H">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <Collection type="TRANOUT_D"/>
+     <field name="TR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_RC" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="S_NO_IS" type="varchar" primarykey="false" objfield="S_NO_IS"/>
+     <field name="TR_OUT_D" type="varchar" primarykey="false" objfield="TR_OUT_D"/>
+     <field name="TR_IN_D" type="varchar" primarykey="false" objfield="TR_IN_D"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+     <field name="TR_DATE" type="varchar" primarykey="false" objfield="BillDate"/>
+   </type>
+
+   <type name="TRANOUT_D" class="com.emis.app.entity.emisTransOutDetailItem" table="TRANS_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="TR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_RC" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="TR_APP_Q" type="int" primarykey="false"  objfield="Quantity"/>
+     <field name="TR_OUT_Q" type="int" primarykey="false" changeable="true" objfield="TR_OUT_Q"/>
+     <field name="TR_IN_Q" type="int" primarykey="false" changeable="true" objfield="TR_IN_Q"/>
+     <field name="TR_CONF_Q" type="int" primarykey="false" changeable="true" objfield="TR_CONF_Q"/>
+     <field name="TR_PRICE" type="decimal" primarykey="false" changeable="false" objfield="Price"/>
+     <field name="TR_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="P_TYPE_E" type="varchar" primarykey="false" objfield="PTypeE"/>
+   </type>
+
+   <type name="TRANIN" class="com.emis.app.entity.emisTranIn" table="TRANS_H">
+
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+
+     <Collection type="TRANIN_D"/>
+     <field name="TR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_RC" type="varchar" primarykey="true" objfield="StoreNo"/>
+
+     <field name="S_NO_IS" type="varchar" objfield="S_NO_IS"/>
+     <field name="S_NO_RQ" type="varchar" objfield="S_NO_RQ"/>
+     <field name="TR_OUT_D" type="varchar" objfield="TR_OUT_D"/>
+     <field name="TR_IN_D" type="varchar" objfield="TR_IN_D"/>
+
+     <field name="TR_DATE" type="varchar" objfield="BillDate"/>
+     <field name="FLD_NO" type="varchar" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" changeable="true" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" changeable="true" objfield="BillModifier"/>
+     <field name="REMARK" type="varchar" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="TRANIN_D" class="com.emis.app.entity.emisTranInDetailItem" table="TRANS_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="TR_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO_RC" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="TR_APP_Q" type="int" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="TR_IN_Q" type="int" primarykey="false" objfield="TR_IN_Q"/>
+     <field name="TR_COST" type="decimal" objfield="Cost"/>
+     <field name="TR_PRICE" type="decimal" objfield="Price"/>
+   </type>
+
+   <type name="SP" class="com.emis.app.entity.emisSp" table="SP_H">
+     <Collection type="SP_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="SP_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="G_NO" type="varchar" primarykey="false" changeable="true" objfield="StoreGroup"/>
+     <field name="PRM_NO" type="varchar" primarykey="false" objfield="PromotionNo"/>
+     <field name="PRM_TYPE" type="varchar" primarykey="false" objfield="PromotionType"/>
+     <field name="SP_KIND" type="varchar" primarykey="false" objfield="SpType"/>
+     <field name="SP_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginDate"/>
+     <field name="SP_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndDate"/>
+     <field name="SP_HOUR_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginHour"/>
+     <field name="SP_HOUR_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndHour"/>
+     <field name="SP_MINS_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginMin"/>
+     <field name="SP_MINS_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndMin"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="SP_D" class="com.emis.app.entity.emisSpDetailItem" table="SP_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="SP_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="P_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="SPD_TYPE" type="varchar" primarykey="false" changeable="true" objfield="SpType"/>
+     <field name="SPD_OPRICE1" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice1"/>
+     <field name="SPD_OPRICE2" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice2"/>
+     <field name="SPD_OPRICE3" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice3"/>
+     <field name="SPD_OPRICE4" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice4"/>
+     <field name="SPD_OPRICE5" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice5"/>
+     <field name="SPD_OPRICE6" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice6"/>
+     <field name="SPD_PRICE1" type="decimal" primarykey="false" changeable="true" objfield="SpPrice1"/>
+     <field name="SPD_PRICE2" type="decimal" primarykey="false" changeable="true" objfield="SpPrice2"/>
+     <field name="SPD_PRICE3" type="decimal" primarykey="false" changeable="true" objfield="SpPrice3"/>
+     <field name="SPD_PRICE4" type="decimal" primarykey="false" changeable="true" objfield="SpPrice4"/>
+     <field name="SPD_PRICE5" type="decimal" primarykey="false" changeable="true" objfield="SpPrice5"/>
+     <field name="SPD_PRICE6" type="decimal" primarykey="false" changeable="true" objfield="SpPrice6"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+   </type>
+
+   <type name="SPPROD" class="com.emis.app.entity.emisSpProd" table="SPPROD_H">
+     <Collection type="SPPROD_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="SP_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="G_NO" type="varchar" primarykey="false" changeable="true" objfield="StoreGroup"/>
+     <field name="PRM_NO" type="varchar" primarykey="false" objfield="PromotionNo"/>
+     <field name="PRM_TYPE" type="varchar" primarykey="false" objfield="PromotionType"/>
+     <field name="SP_KIND" type="varchar" primarykey="false" objfield="SpType"/>
+     <field name="SP_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginDate"/>
+     <field name="SP_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndDate"/>
+     <field name="SP_HOUR_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginHour"/>
+     <field name="SP_HOUR_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndHour"/>
+     <field name="SP_MINS_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginMin"/>
+     <field name="SP_MINS_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndMin"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="SPPROD_D" class="com.emis.app.entity.emisSpProdDetailItem" table="SPPROD_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="SP_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="P_PROD_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="SPD_TYPE" type="varchar" primarykey="false" changeable="true" objfield="SpType"/>
+     <field name="SPD_OPRICE1" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice1"/>
+     <field name="SPD_OPRICE2" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice2"/>
+     <field name="SPD_OPRICE3" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice3"/>
+     <field name="SPD_OPRICE4" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice4"/>
+     <field name="SPD_OPRICE5" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice5"/>
+     <field name="SPD_OPRICE6" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice6"/>
+     <field name="SPD_PRICE1" type="decimal" primarykey="false" changeable="true" objfield="SpPrice1"/>
+     <field name="SPD_PRICE2" type="decimal" primarykey="false" changeable="true" objfield="SpPrice2"/>
+     <field name="SPD_PRICE3" type="decimal" primarykey="false" changeable="true" objfield="SpPrice3"/>
+     <field name="SPD_PRICE4" type="decimal" primarykey="false" changeable="true" objfield="SpPrice4"/>
+     <field name="SPD_PRICE5" type="decimal" primarykey="false" changeable="true" objfield="SpPrice5"/>
+     <field name="SPD_PRICE6" type="decimal" primarykey="false" changeable="true" objfield="SpPrice6"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+   </type>
+
+   <type name="STORE" class="com.emis.app.entity.store.emisStorePersistentObject" table="STORE">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="S_NAME" type="varchar" primarykey="false" objfield="Name"/>
+     <field name="S_LEADER" type="varchar" primarykey="false" objfield="Leader"/>
+     <field name="R_NO" type="varchar" primarykey="false" objfield="RegionNo"/>
+     <field name="COM_NO" type="varchar" primarykey="false" objfield="CompanyNo"/>
+     <field name="S_ATTRIB" type="varchar" primarykey="false" objfield="Attribute"/>
+     <field name="S_ZIP" type="varchar" primarykey="false" objfield="Zip"/>
+     <field name="S_ADDR" type="varchar" primarykey="false" objfield="Address"/>
+     <field name="S_TAX" type="varchar" primarykey="false" objfield="Tax"/>
+     <field name="S_INVID" type="varchar" primarykey="false" objfield="InvoiceNo"/>
+     <field name="S_AR_LIMIT" type="decimal" primarykey="false" objfield="BuyLimit"/>
+     <field name="S_LEVEL" type="varchar" primarykey="false" objfield="Level"/>
+     <field name="S_STATUS" type="varchar" primarykey="false" objfield="Status"/>
+   </type>
+
+   <type name="MHUGEPROD" class="com.emis.app.entity.emisMhugeProd" table="MHUGEPROD_H">
+     <Collection type="MHUGEPROD_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MH_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="S_NO" type="varchar" primarykey="false" objfield="StoreNo"/>
+     <field name="G_NO" type="varchar" primarykey="false" changeable="true" objfield="StoreGroup"/>
+     <field name="PRM_NO" type="varchar" primarykey="false" objfield="PromotionNo"/>
+     <field name="PRM_TYPE" type="varchar" primarykey="false" objfield="PromotionType"/>
+     <field name="ICOST_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="InPriceBeginDate"/>
+     <field name="ICOST_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="InPriceEndDate"/>
+     <field name="MH_TYPE" type="varchar" primarykey="false" changeable="true" objfield="PricingType"/>
+     <field name="MH_DATE_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginDate"/>
+     <field name="MH_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndDate"/>
+     <field name="MH_HOUR_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginHour"/>
+     <field name="MH_HOUR_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndHour"/>
+     <field name="MH_MINS_S" type="varchar" primarykey="false" changeable="true" objfield="SpBeginMin"/>
+     <field name="MH_MINS_E" type="varchar" primarykey="false" changeable="true" objfield="SpEndMin"/>
+     <field name="MH_QTY1" type="int" primarykey="false" changeable="true" objfield="MixQuantity1"/>
+     <field name="MH_PRICE1" type="decimal" primarykey="false" changeable="true" objfield="MixPrice1"/>
+     <field name="MH_DISC1" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount1"/>
+     <field name="MH_QTY2" type="int" primarykey="false" changeable="true" objfield="MixQuantity2"/>
+     <field name="MH_PRICE2" type="decimal" primarykey="false" changeable="true" objfield="MixPrice2"/>
+     <field name="MH_DISC2" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount2"/>
+     <field name="MH_QTY3" type="int" primarykey="false" changeable="true" objfield="MixQuantity3"/>
+     <field name="MH_PRICE3" type="decimal" primarykey="false" changeable="true" objfield="MixPrice3"/>
+     <field name="MH_DISC3" type="decimal" primarykey="false" objfield="MixDsicount3"/>
+     <field name="MH_QTY4" type="int" primarykey="false" changeable="true" objfield="MixQuantity4"/>
+     <field name="MH_PRICE4" type="decimal" primarykey="false" changeable="true" objfield="MixPrice4"/>
+     <field name="MH_DISC4" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount4"/>
+     <field name="MH_QTY5" type="int" primarykey="false" changeable="true" objfield="MixQuantity5"/>
+     <field name="MH_PRICE5" type="decimal" primarykey="false" changeable="true" objfield="MixPrice5"/>
+     <field name="MH_DISC5" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount5"/>
+     <field name="MH_QTY6" type="int" primarykey="false" changeable="true" objfield="MixQuantity6"/>
+     <field name="MH_PRICE6" type="decimal" primarykey="false" changeable="true" objfield="MixPrice6"/>
+     <field name="MH_DISC6" type="decimal" primarykey="false" changeable="true" objfield="MixDsicount6"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false" changeable="true" objfield="BillRemark"/>
+   </type>
+
+   <type name="MHUGEPROD_D" class="com.emis.app.entity.emisMhugeProdDetialItem" table="MHUGEPROD_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="MH_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="P_PROD_NO" type="varchar" primarykey="true" objfield="ProductNo"/>
+     <field name="MHD_OPRICE" type="decimal" primarykey="false" changeable="true" objfield="OrignalPrice"/>
+     <field name="V_NO" type="varchar" primarykey="false" changeable="true" objfield="VendorNo"/>
+     <field name="MHD_IPRICE" type="decimal" primarykey="false" changeable="true" objfield="SpCost"/>
+     <field name="EST_SALE" type="int" primarykey="false" changeable="true" objfield="EstimateSale"/>
+   </type>
+
+    <type name="USELESS" class="com.emis.app.entity.emisUsel" table="USELESS_H">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <Collection type="USELESS_D"/>
+     <field name="US_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="US_DATE" type="varchar" primarykey="false" changeable="true" objfield="BillDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+   </type>
+
+   <type name="USELESS_D" class="com.emis.app.entity.emisUselDetailItem" table="USELESS_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="US_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="S_NO" type="varchar" primarykey="true" objfield="StoreNo"/>
+     <field name="RECNO" type="smallint" primarykey="true" objfield="RecNo"/>
+     <field name="P_NO" type="varchar" primarykey="false" objfield="ProductNo"/>
+     <field name="UN_NO" type="varchar" primarykey="false" objfield="UnitNo"/>
+     <field name="PD_NO" type="varchar" primarykey="false" objfield="PDNo"/>
+     <field name="US_CONF_Q" type="smallint" primarykey="false" changeable="true" objfield="US_CONF_Q"/>
+     <field name="US_APP_Q" type="smallint" primarykey="false" changeable="true" objfield="Quantity"/>
+     <field name="US_PRICE" type="decimal" primarykey="false" objfield="Price"/>
+     <field name="US_COST" type="decimal" primarykey="false" objfield="Cost"/>
+     <field name="US_RSN_NO" type="varchar" primarykey="false" changeable="true" objfield="AdjustSourceBillNo"/>
+     <field name="US_REASON" type="varchar" primarykey="false" changeable="true" objfield="AdjustReason"/>
+   </type>
+
+   <type name="PM" class="com.emis.app.entity.emisPm" table="PROMOTIONS_H">
+     <Collection type="PM_D"/>
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="PRM_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="PRM_TITLE" type="varchar" changeable="true" primarykey="false" objfield="PmTitle"/>
+     <field name="PRM_DATE_S" type="varchar" primarykey="false"   changeable="true"  objfield="PmBeginDate"/>
+     <field name="PRM_DATE_E" type="varchar" primarykey="false" changeable="true" objfield="PmEndDate"/>
+     <field name="PRM_COUNT" type="int" primarykey="false"   changeable="true"  objfield="PmItemTotal"/>
+     <field name="PRM_DM_SPEC" type="varchar" primarykey="false"   changeable="true"  objfield="PmDMSpecification"/>
+     <field name="PRM_QUOTA" type="decimal" primarykey="false"   changeable="true"  objfield="PmQuota"/>
+     <field name="CRE_USER" type="varchar" primarykey="false" objfield="BillCreator"/>
+     <field name="CRE_DATE" type="varchar" primarykey="false" objfield="BillCreateDate"/>
+     <field name="UPD_USER" type="varchar" primarykey="false" changeable="true" objfield="BillModifier"/>
+     <field name="UPD_DATE" type="varchar" primarykey="false" objfield="BillModifiedDate"/>
+     <field name="FLD_NO" type="varchar" primarykey="false" objfield="BillFlowDefNo"/>
+     <field name="FLS_NO" type="varchar" primarykey="false" objfield="BillFlowStateNo"/>
+     <field name="REMARK" type="varchar" primarykey="false"   changeable="true"  objfield="BillRemark"/>
+   </type>
+
+   <type name="PM_D" class="com.emis.app.entity.emisPmDetailItem" table="PROMOTIONS_D">
+     <Mapper>com.emis.app.mapper.emisRDBMapper</Mapper>
+     <field name="PRM_NO" type="varchar" primarykey="true" objfield="BillNo"/>
+     <field name="COM_NO" type="varchar" primarykey="true" objfield="CompanyNo"/>
+     <field name="RECNO" type="int" primarykey="true" objfield="RecNo"/>
+     <field name="PRMD_PROPOSE" type="varchar" primarykey="false" changeable="true" objfield="PmPropose"/>
+     <field name="PRMD_DESCR" type="varchar" primarykey="false" changeable="true" objfield="PmDescription"/>
+   </type>
+
+
+ </xml>
+
+
+
+

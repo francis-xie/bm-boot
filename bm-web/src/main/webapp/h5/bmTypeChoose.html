@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- $Id$ -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="群丰软件" name="Keywords">
+  <meta name="description" content="TODO">
+  <meta name="author" content="TODO 群丰软件">
+  <link rel="stylesheet" href="css/weui.min.css?ver=2.0.0">
+  <link rel="stylesheet" href="css/swiper.min.css?ver=4.5.0">
+  <link rel="stylesheet" href="css/base_default.css?ver=1.0">
+  <link rel="stylesheet" href="css/bm/bmTypeChoose.css?ver=1.0">
+  <title>用餐方式选择</title>
+</head>
+<body>
+<div id="app" v-cloak>
+  <!-- 固定标题 -->
+  <div class="head_panel">
+    <div class="swiper-container" id="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item,index) in ADImgList">
+          <img :src="item.ordImgUrl" class="adImg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主界面 -->
+  <div class="body_panel">
+    <div class="top_info">
+      <div class="top_info_comp">
+        <div class="top_info_comp_img">
+          <img :src="comp.icon" @dblclick="exitfull">
+        </div>
+        <div class="t-i-phone-info">
+          <div class="t-i-phone-info-title">{{comp.name}}</div>
+          <div class="t-i-phone-info-num">电话:{{comp.tel}}</div>
+        </div>
+      </div>
+      <div style="text-align: right">
+        <div>{{date}}</div>
+        <div>{{time}}</div>
+      </div>
+    </div>
+    <div class="c-content">
+      <div class="c-content-title">
+        <span>请选择用餐方式</span>
+      </div>
+      <div class="c-content-buttons">
+        <div class="c-content-button">
+          <img class="c-content-button-img" src="icon/T_EI.png" @click="jumpToOrder('3')">
+        </div>
+        <div class="c-content-button">
+          <img class="c-content-button-img" src="icon/T_TO.png" @click="jumpToOrder('2')">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚(导航) -->
+  <div class="foot_panel">
+  </div>
+</div>
+<script src="js/lib/vue.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
+<script src="js/lib/jquery.mobile.custom.min.js" charset="utf-8"></script>
+<script src="js/lib/weui.min.js?ver=1.1.4" charset="utf-8"></script>
+<script src="js/lib/weui.js" charset="utf-8"></script>
+<script src="js/lib/swiper.min.js?ver=4.5.0" charset="utf-8"></script>
+
+<script src="js/utils.js?ver=1.0" charset="utf-8"></script>
+<script src="js/commonAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmTypeChoose.js?ver=1.2" charset="utf-8"></script>
+</body>
+</html>

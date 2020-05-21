@@ -1,0 +1,55 @@
+.表格_栏_文字 {  background-color: #CCFFCC; text-align: left; font-size: 10pt; font-family: "新宋体"}
+.表格_栏_资料 {  background-color: #FFFFCC; font-size: 10pt}
+.表格_栏_文字_2 {  background-color: #CCFFCC; text-align: left; font-size: 9pt; font-family: "新宋体"}
+.表格_栏_资料_2 {  background-color: #FFFFCC; font-size: 9pt}
+.功能标题 {  font-family: "楷体_GB2312"; font-size: 16pt; font-style: normal; text-align: center; color: #3333FF; background-position: center}
+.功能标题_2 {  font-family: "楷体_GB2312"; font-size: 12pt; font-style: normal; text-align: center; color: #3333FF; background-position: center}
+.连结_浏览器 {  color: #9933FF; text-decoration: underline; cursor: hand; text-align: center; font-size: 10pt; height: 25px}
+.连结_功能 {  font-family: "楷体_GB2312"; font-size: 10pt; cursor: hand; text-decoration: underline; color: #3366CC}
+.表单_文字栏位 {  font-size: 10pt; font-family: "新宋体"; font-style: normal}
+.表格_字型 {  font-family: "新宋体"; font-size: 12pt; color: #FFFF99; background-color: #006666; text-align: center}
+.表格_表头 {  font-family: "新宋体"; font-size: 10pt; color: #FFFF99; background-color: #006666; text-align: center}
+.表格_表身 {  background-color:#FFFFCC; font-size:10pt}
+.表格_奇数列 {  background-color: #99CCFF; font-size: 10pt}
+.表格_偶数列 {  background-color: #FFFFCC; font-size: 10pt}
+.表格_表头_2 {  font-family: "新宋体"; font-size: 10pt; color: #FFFF99; background-color: #006666; text-align: center}
+.表格_表身_2 {  background-color:#FFFFCC; font-size:10pt}
+.表格_奇数列_2 {  font-size: 10pt; background-color: #EEEEEE}
+.表格_偶数列_2 {  font-size: 10pt; background-color: #99CCCC}
+.表格_表头_3 {  font-family: "新宋体"; font-size: 10pt; color: #FFFFFF; background-color: #0000FF; text-align: center}
+.表格_表身_3 {  background-color:#FFFFCC; font-size:10pt}
+.表格_奇数列_3 {  font-size: 10pt; background-color: #F0F8FF}
+.表格_偶数列_3 {  font-size: 10pt; background-color: #FFE4E1}
+.表格_栏_文字连结 { width: 10%; text-align: center; font-size: 10pt; height: 25px; font-family: "新宋体" ; color: #3366CC; text-decoration: underline; cursor: hand}
+.表格_列_文字 {  background-color:#CCFFCC; font-size: 10pt}
+.表格_列_资料 {  background-color:silver; font-size: 10pt}
+.表格_列_按钮 {  background-color: #99CCFF; font-size: 10pt}
+.表格_例外_文字 {
+  border-color:blue;
+  border-width:1cm;
+  color: aliceBlue;
+  background-color:cornflowerblue; align: center;
+  font-size:14pt;
+}
+.表格_例外_资料 {
+  border-color:blue;
+  border-width:1cm;
+  background-color:aliceBlue;
+  font-size:14pt;
+  color:red;
+}
+.Font8  {  font-family: "新宋体"; font-size: 8pt}
+.Font9  {  font-family: "新宋体"; font-size: 9pt}
+.Font10 {  font-family: "新宋体"; font-size: 10pt}
+.scrollable { WIDTH:100%; HEIGHT:100%; BACKGROUND: #99ccff; POSITION: relative;
+       top:0px; BORDER-RIGHT: #99ccff 1px solid; BORDER-TOP: #99ccff 1px solid;
+       PADDING-BOTTOM: 1px; OVERFLOW: auto; BORDER-LEFT: #99ccff 1px solid
+}
+.menuItem {font-family:"新宋体";font-size:12pt;width:100;
+   background-Color:yellow;color:black}
+.highlightItem {font-family:"新宋体";font-size:12pt;width:100;
+   background-Color:highlight;color:white}
+.menuDiv {position:absolute;display:none;width:100;background-Color:menu; border: outset 3px gray}
+.url { cursor: hand; color: #000FFF; font-size: 9pt; }
+.url:hover { cursor: hand; color: #FF00FF; font-size: 9pt; text-decoration: underline; }
+.input { color: navy; border-style:solid; border-width:1; background-color: #FFFFCC; }

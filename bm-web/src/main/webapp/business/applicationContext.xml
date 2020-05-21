@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ $Id$
+定义说明：
+ bean
+     id : 必需唯一，不然会覆盖，因此规则为emisWebServiceEntry的请求路由的{type}_{action}
+     class : 要创建的类对象
+     singleton : true | false 是否为单例，不写默认为 true
+ property
+   name : 必需是目标class的一个属性，并提供setXXXX的方法， 如name > setName; lastName(String name) >> setLastName(String lastName)
+   type : string | int | float | double | long ，不写时默认为 string
+   bean : 用于指定配置中的bean id,即引用另一个类
+
+Sample:
+	<bean id="reportFactory" class="com.emis.xml.report.impl.ClassPathXmlReportContext" init-method="init" >
+		<property name="resourcePath" value="emis-reports.xml"/>
+	</bean>
+
+	<bean id="reportFactory" class="com.emis.xml.report.impl.ClassPathXmlReportContext" init-method="init" >
+		<property name="name" value="joe"/>
+		<property name="lastName" value="yao" type="string"/>
+		<property name="age" value="18" type="int"/>
+		<property name="reportFactory" bean="reportFactory" />
+	</bean>
+
+	<bean id="member_bind" class="com.emis.webservices.service.espa.emisSpaBindMemberImpl" singleton="false" />
+  <bean id="appoint_bind" class="com.emis.webservices.service.espa.emisSpaAppointMemberImpl" />
+-->
+<beans>
+  <!-- 大屏点餐接口API begin -->
+  <beans typeId="bm">
+    <!-- 公共资料(系统参数)查询 -->
+    <bean id="common_prop" class="com.emis.webservices.service.bm.common.emisBMCommonDatasImpl" singleton="true">
+      <property name="defaultAct" value="commonProp"/>
+    </bean>
+    <!-- 1.1 获取主页轮播图 -->
+    <bean id="images_getIndexImgList" class="com.emis.webservices.service.bm.images.emisBMImagesImpl" singleton="false">
+      <property name="defaultAct" value="getIndexImgList"/>
+    </bean>
+    <!-- 1.2 获取点餐页头部轮播图 -->
+    <bean id="images_getOrderHeadImgList" class="com.emis.webservices.service.bm.images.emisBMImagesImpl" singleton="false">
+      <property name="defaultAct" value="getOrderHeadImgList"/>
+    </bean>
+    <!-- 1.3 获取门店基本信息 -->
+    <bean id="store_getStoreInfo" class="com.emis.webservices.service.bm.store.emisBMStoreImpl" singleton="false">
+      <property name="defaultAct" value="getStoreInfo"/>
+    </bean>
+
+    <!-- 1.20 获取商品分类列表 -->
+    <bean id="part_getDepartList" class="com.emis.webservices.service.bm.part.emisBMPartImpl" singleton="false">
+      <property name="defaultAct" value="getDepartList"/>
+    </bean>
+    <!-- 1.21 获取商品列表 -->
+    <bean id="part_getPartList" class="com.emis.webservices.service.bm.part.emisBMPartImpl" singleton="false">
+      <property name="defaultAct" value="getPartList"/>
+    </bean>
+    <!-- 1.22 获取商品信息 -->
+    <bean id="part_getPartInfo" class="com.emis.webservices.service.bm.part.emisBMPartImpl" singleton="false">
+      <property name="defaultAct" value="getPartInfo"/>
+    </bean>
+    <!-- 1.23 获取促销设置 -->
+    <bean id="part_getPromoteInfo" class="com.emis.webservices.service.bm.part.emisBMPartImpl" singleton="false">
+      <property name="defaultAct" value="getPromoteInfo"/>
+    </bean>
+
+    <!-- 1.40 产生订单 -->
+    <bean id="order_orderAdd" class="com.emis.webservices.service.bm.order.emisBMOrderImpl" singleton="false">
+      <property name="defaultAct" value="orderAdd"/>
+    </bean>
+
+    <!-- 1.90 同步数据 -->
+    <bean id="syndata_synPartData" class="com.emis.webservices.service.bm.syndata.emisBMSynDataImpl" singleton="false">
+      <property name="defaultAct" value="synPartData"/>
+    </bean>
+    <!-- 1.91 登录身份检查 -->
+    <bean id="syndata_checkLogin" class="com.emis.webservices.service.bm.syndata.emisBMSynDataImpl" singleton="false">
+      <property name="defaultAct" value="checkLogin"/>
+    </bean>
+  </beans>
+  <!-- 大屏点餐接口API end -->
+
+</beans>

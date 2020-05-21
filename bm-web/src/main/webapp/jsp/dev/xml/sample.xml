@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<business>
+
+<act name="default">
+    <showdata tableid="idTBL">
+
+        <datasrc id="xmlData">
+            <sql>
+                select T1,T2,T3,'0' T4 FROM VARTEST ORDER BY T1
+            </sql>
+        </datasrc>
+
+        <table id="idToolbar" width="100%" bgColor="Silver" CELLSPACING="0" CELLPADDING="3" BORDER="3" height="300">
+          <tr>
+            <td width="25%">
+              <navigator/>
+            </td>
+            <td style="color:blue" width="15%">
+              <showrecordnum/>
+            </td>
+            <td>
+              <showpagenum/>
+            </td>
+            <td>
+              <datapagesize/>
+            </td>
+            <td>
+              <button name="add">新增</button>
+              <button name="upd">修改</button>
+              <button name="del">删除</button>
+              <button name="quit">关闭</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+                <div style="BACKGROUND: #99ccff; POSITION: relative; top:-3px; BORDER-RIGHT: #99ccff 2px solid; BORDER-TOP: #99ccff 2px solid; PADDING-BOTTOM: 10px; OVERFLOW: auto; BORDER-LEFT: #99ccff 2px solid; WIDTH:98%; HEIGHT: 600px">
+                    <tabledef clickid="idRow">
+                        <table id="idTBL" datasrc="#xmlData" border="2" width="100%" datapagesize="10">
+                            <thead class="表格_表头">
+                             <tr>
+                              <td width="25%">T1</td>
+                              <td width="25%">T2</td>
+                              <td width="25%">T3</td>
+                              <td width="25%">delete ?</td>
+                             </tr>
+                            </thead>
+                            <tbody class="表格_表身" >
+                             <tr id="idRow">
+                              <td><div DataFld="T1"></div></td>
+                              <td><div DataFld="T2"></div></td>
+                              <td><div DataFld="T3"></div></td>
+                              <td><input id="check" type="checkbox" DataFld="T4"></input></td>
+                             </tr>
+                            </tbody>
+                        </table>
+                    </tabledef>
+                </div>
+            </td>
+          </tr>
+        </table>
+    </showdata>
+
+</act>
+
+
+<act name="upd_save">
+    <database>
+        <sql>
+            UPDATE VARTEST SET T1=?,T2=?,T3=? WHERE NVL(T1,'@')=? AND NVL(T2,-65535)=? AND NVL(T3,-65535)=?
+        </sql>
+        <param>
+            <pname type="string">NEW_T1</pname>
+            <pname type="int">NEW_T2</pname>
+            <pname type="float">NEW_T3</pname>
+            <where type="string">T1</where>
+            <where type="int">T2</where>
+            <where type="float">T3</where>
+        </param>
+    </database>
+</act>
+
+
+<act name="add">
+    <database>
+        <sql>
+            insert into VARTEST (T1,T2,T3) values (?,?,?)
+        </sql>
+        <param>
+            <pname type="sequence" name="test_seq" autodrop="%M">%Y%M%4S</pname>
+            <pname type="int">T2</pname>
+            <pname type="float">T3</pname>
+        </param>
+    </database>
+</act>
+
+
+<act name="del">
+    <database>
+        <sql>
+            delete from VARTEST WHERE NVL(T1,'@')=? AND NVL(T2,-65535)=? AND NVL(T3,-65535)=?
+        </sql>
+        <tokenizer>true</tokenizer>
+        <param>
+            <where type="string">T1</where>
+            <where type="int">T2</where>
+            <where type="float">T3</where>
+        </param>
+    </database>
+</act>
+
+</business>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportConfig>
+  <config>
+    <name>logConfig</name>
+    <value>/WEB-INF/runqianReportLog.properties</value>
+  </config>
+  <config>
+    <name>license</name>
+    <value>ServerYV4.0Windows.lic</value>
+  </config>
+  <config>
+    <name>reportFileHome</name>
+    <value>/quiee/reportFiles</value>
+  </config>
+  <config>
+    <name>semanticsFile</name>
+    <value></value>
+  </config>
+  <config>
+    <name>JNDIPrefix</name>
+    <value>java:comp/env</value>
+  </config>
+  <!--<config>-->
+    <!--<name>dataSource</name>-->
+    <!--<value>jdbc/VENUS,sqlsvr,UTF-8</value>-->
+  <!--</config>-->
+  <config>
+    <name>jspCharset</name>
+    <value>UTF-8</value>
+  </config>
+  <config>
+    <name>alwaysReloadDefine</name>
+    <value>yes</value>
+  </config>
+  <config>
+    <name>cachedParamsTimeout</name>
+    <value>120</value>
+  </config>
+  <config>
+    <name>cachedReportDir</name>
+    <value>c:\temp</value>
+  </config>
+  <config>
+    <name>cachedIdPrefix</name>
+    <value>A</value>
+  </config>
+  <config>
+    <name>cachedReportTimeout</name>
+    <value>120</value>
+  </config>
+  <config>
+    <name>maxCellNum</name>
+    <value>100000</value>
+  </config>
+  <config>
+    <name>maxConcurrentForReport</name>
+    <value />
+  </config>
+  <config>
+    <name>maxWaitForReport</name>
+    <value>10</value>
+  </config>
+  <config>
+    <name>maxWaitTimeForReport</name>
+    <value>30</value>
+  </config>
+  <config>
+    <name>appUrlPrefix</name>
+    <value />
+  </config>
+  <config>
+    <name>errorPage</name>
+    <value>/quiee/myError.jsp</value>
+  </config>
+
+</reportConfig>
+

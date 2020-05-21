@@ -1,0 +1,55 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div align="center">
+  <h2 style="color:red">
+    错误码：404
+  </h2>
+
+  <h3 style="color:red">
+    很抱歉，无法寻获您要使用的网页！<br>
+    <script> document.write(window.location.href); </script>
+  </h3>
+  <hr>
+  <input type="Button" value="再试一次" onclick="window.location.reload()">
+  <input type="Button" name=btnBack value="回上页" onclick="window.history.back()">
+  <input type="Button" value="关闭" onclick="closeWindow()">
+</div>
+<div id="div_footer" style="position:absolute"></div>
+</body>
+</html>
+<script type="text/javascript">
+  document.oncontextmenu = function () {
+    return false;
+  }
+  var _sDwzWinid = getQueryStringParameter("dwzwinid");
+  if (_sDwzWinid || window.history.length == 0)
+    document.getElementsByName("btnBack")[0].style.display = "none";
+
+  function getQueryStringParameter(name) {
+    var qry = window.location.href.substring(window.location.href.indexOf("?") + 1);
+    if (typeof qry !== undefined && qry !== "") {
+      var keyValueArray = qry.split("&");
+      for (var i = 0; i < keyValueArray.length; i++) {
+        if (keyValueArray[i].indexOf(name) > -1) {
+          return keyValueArray[i].split("=")[1];
+        }
+      }
+    }
+    return "";
+  }
+  function closeWindow() {
+    if (_sDwzWinid) {
+      var _emisTop = top;
+      while (_emisTop.parent != top)
+        _emisTop = _emisTop.parent;
+      _emisTop.dwzClose(_sDwzWinid);
+    } else {
+      window.opener = null;
+      window.open('', '_self');
+      window.close();
+    }
+  }
+</script>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- $Id$ -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="群丰软件" name="Keywords">
+  <meta name="description" content="TODO">
+  <meta name="author" content="TODO 群丰软件">
+  <link rel="stylesheet" href="css/weui.min.css?ver=2.0.0">
+  <link rel="stylesheet" href="css/swiper.min.css?ver=4.5.0">
+  <link rel="stylesheet" href="css/base_default.css?ver=1.0">
+  <link rel="stylesheet" href="css/bm/bmStart.css?ver=1.1">
+  <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="css/bm/bmIndex_large.css?ver=1.1"/>
+  <title>开始点餐</title>
+</head>
+<body>
+<div id="app" v-cloak>
+  <!-- 固定标题 -->
+  <div class="head_panel">
+  </div>
+
+  <!-- 主界面 -->
+  <div class="body_panel">
+    <div>
+      <div class="swiper-container" id="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item,index) in ADImgList">
+            <img :src="item.indexImgUrl" class="adImg">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;z-index: 3; width: 100%; bottom: 30%;" class="H4_Selected_OnSecondary_HighEmphasis">
+      <div class="btnOrder" @click="jumpToTypeChoose">进 入 点 餐</div>
+    </div>
+    <img src="icon/point.png" class="imgPoint" @click="jumpToTypeChoose">
+  </div>
+
+  <!-- 页脚(导航) -->
+  <div class="foot_panel">
+  </div>
+</div>
+<script src="js/lib/vue.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
+<script src="js/lib/jquery.mobile.custom.min.js" charset="utf-8"></script>
+<script src="js/lib/weui.min.js?ver=1.1.4" charset="utf-8"></script>
+<script src="js/lib/weui.js" charset="utf-8"></script>
+<script src="js/lib/swiper.min.js?ver=4.5.0" charset="utf-8"></script>
+
+<script src="js/utils.js?ver=1.0" charset="utf-8"></script>
+<script src="js/commonAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmStart.js?ver=1.2" charset="utf-8"></script>
+</body>
+</html>

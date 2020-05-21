@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- $Id$ -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="群丰软件" name="Keywords">
+  <meta name="description" content="TODO">
+  <meta name="author" content="TODO 群丰软件">
+  <link rel="stylesheet" href="css/weui.min.css?ver=2.0.0">
+  <link rel="stylesheet" href="css/base_default.css?ver=1.0">
+  <link rel="stylesheet" href="css/bm/bmPay.css?ver=1.3">
+  <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="css/bm/bmIndex_large.css?ver=1.1"/>
+  <title>自助点餐系统-付款</title>
+</head>
+
+<body>
+<div id="app" v-cloak>
+  <!-- 固定标题 -->
+  <div class="head_panel">
+    <img src="images/payGuide.jpg" id="headImgDiv">
+  </div>
+  <div class="body_panel">
+    <transition name="shopping">
+      <div class="shoppingCartInfo" :style="(headHeight != 0 ? 'top:'+ headHeight : '')">
+        <div class="shoppingCartInfo_h shoppingCartInfo_h_large">
+          品项数:{{totalCount.itemCnt}}&nbsp;&nbsp;&nbsp;&nbsp; 商品数量:{{totalCount.qty}} &nbsp;&nbsp;&nbsp;&nbsp; 总金额:{{totalCount.total}}
+        </div>
+        <div class="shoppingCartInfo_d">
+          <div style="height: 52vh;overflow: hidden;" class="wrapper3" ref="wrapper3">
+            <div>
+            <div  v-for="(item,index) in order.partList">
+              <div v-for="(selector,selectorIndex) in item.selectors" class="Body2_Black_HighEmphasis detail-item">
+                <img class="detail-img" :src="item.imgUrl" alt="">
+                <div class="detail-name"
+                     style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">
+                  {{item.name}}
+                </div>
+
+                <div class="Caption_Black_MediumEmphasis detail-selector">{{renderSelector(item.type,selector)}}</div>
+                <div style="width: 100%;display: flex;flex-direction: column-reverse;height: 25px">
+                  <div class="detail-price">
+                    ￥{{ renderPrice((oType == '1' ? item.priceWM : item.price) + ( (oType == '1' || oType == '2') ?
+                    (item.boxPrice*item.boxQty) : 0) + selector.seaAmt) }}
+                  </div>
+                  <div class="detail-item-buttons" style="margin-right: 20px;">
+                    <!--<div class="detail-item-button"><img style="width:25px;" src="icon/minus.png" alt=""
+                                                         @click="selectorMinus(index,selectorIndex)"></div>-->
+                    <span v-show="item.selectors">数量: {{ selector.qty }}</span>
+                    <!--<div class="detail-item-button"><img style="width:25px;" src="icon/plus.png" alt=""
+                                                         @click="selectorAdd(index,selectorIndex)"></div>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div  v-for="(item,index) in order.fullPmChooseList">
+              <div  v-for="(item2,index2) in item.pmFullGift" v-if="item2.gChoose > 0" class="Body2_Black_HighEmphasis detail-item">
+                <!--<img class="detail-img" :src="item.imgUrl" alt="">-->
+                <div class="detail-name"
+                     style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">
+                  {{item2.gPName}}
+                </div>
+
+                <!--<div class="Caption_Black_MediumEmphasis detail-selector">{{renderSelector(item.type,selector)}}</div>-->
+                <div style="width: 100%;display: flex;flex-direction: column-reverse;height: 25px">
+                  <div class="detail-price">
+                    ￥{{item2.gPrice}}
+                  </div>
+                  <div class="detail-item-buttons" style="margin-right: 20px;">
+                    <span>数量: {{item2.gChoose}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center; font-size: 6px; line-height: 20px; color:rgba(0,0,0,0.8); height: 5vh;">---------- 底线 ----------</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
+
+  <div v-if="payTime" class="detailDiv---" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: 999; ">
+    <div style="width: 100%;height: 100%;background-color: rgba(0,0,0,0.25);text-align: center;padding-top: 40vh;">
+      <div style="width: 60%;margin-left:20%; height: 20vh; background-color:#ffffff;padding: 2.5% 2.5%;border-radius: 5%;">
+        <div style="height: 12vh; line-height: 4vh;">
+          请于1分钟内完成扫码支付<br>
+          <span v-if="processState == '0'">倒计时:{{times}}</span>
+          <span v-if="processState != '0'">{{processMsg}}</span>
+          <p v-if="processState == '2'">{{callbackTime}}秒后，自动返回点餐画面</p>
+        </div>
+        <div style="display:flex ; flex-direction:row; justify-content: space-around;">
+          <div @click="closePayTime" class="cartDivBtn" style="background-color: #767676;width: 50%">{{btnBackName}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-show="order.usedPromote && order.usedPromote.length > 0" class="promoteMsg" id="promoteMsg"
+       style="z-index:102; position: fixed; bottom: 8vh; width: 100%; height: 3.5vh; display: flex;
+       font-size: 0.6em; line-height:3.5vh; background-color: rgba(255,204,158, 0.7); color: rgba(240,0,0,1); justify-content: center;">
+    <!--<div class="usedPromote1">-->
+    优惠:&nbsp;&nbsp;
+    <template v-for="(pm, pmIndex) in order.usedPromote">
+      {{pm.pmTheme}}&nbsp;-{{pm.pmTotalAmt.toFixed(2)}}; &nbsp;
+    </template>
+    <!--</div>-->
+  </div>
+  <div class="foot_panel">
+    <div style="width: 100%;border-bottom: 1px solid black;height: 2px;">&nbsp;</div>
+    <div style="width: 100%; display: flex; position: fixed;">
+    <div @click="jumpToOrder" class="button_gradient cartDivBtn">返回点餐</div>
+
+    <div @click="jumpToTypeChoose" class="button_gradient cartDivBtn">清空</div>
+
+    <div @click="showPayTime" class="button_gradient cartDivBtn">扫码支付</div>
+    </div>
+  </div>
+</div>
+<script src="js/lib/vue.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
+<script src="js/lib/jquery.mobile.custom.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.fly.min.js" charset="utf-8"></script>
+<script src="js/lib/weui.min.js?ver=1.1.4" charset="utf-8"></script>
+<script src="js/lib/weui.js" charset="utf-8"></script>
+<script src="js/lib/bscroll.min.js?ver=1.15.2.1" charset="utf-8"></script>
+
+<script src="js/utils.js?ver=1.0" charset="utf-8"></script>
+<script src="js/commonAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmAPI.js?ver=1.1" charset="utf-8"></script>
+<script src="js/bm/bmPay.js?ver=1.9" charset="utf-8"></script>
+</body>
+</html>

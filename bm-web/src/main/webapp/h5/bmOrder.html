@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!-- $Id$ -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="群丰软件" name="Keywords">
+  <meta name="description" content="TODO">
+  <meta name="author" content="TODO 群丰软件">
+  <link rel="stylesheet" href="css/weui.min.css?ver=2.0.0">
+  <link rel="stylesheet" href="css/swiper.min.css?ver=4.5.0">
+  <link rel="stylesheet" href="css/base_default.css?ver=1.0">
+  <link rel="stylesheet" href="css/bm/bmOrder.css?ver=1.7">
+  <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="css/bm/bmIndex_large.css?ver=1.1"/>
+  <title>自助点餐系统</title>
+</head>
+
+<body>
+<div id="app" v-cloak @click="resetTime">
+  <!-- 固定标题 -->
+  <div class="head_panel">
+    <div class="swiper-container" id="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item,index) in ADImgList">
+          <img :src="item.ordImgUrl" class="adImg">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body_panel">
+    <div class="all-body">
+      <div class="all-nav wrapper" ref="wrapperLeft">
+        <div class="content">
+          <div v-for="(item, index) in partList.departList" @click="clickAllNav(index)" :ref="item.dNo" class="departItem">
+            <img v-if="item.dImg != ''" :src="item.dImg" class="depImg" :class="item.dNo==menuActive ? ' chooseOn' : ' chooseOff'" />
+            <div v-else  :class="'all-nav-item ' + (item.dName.length>5?'toolong ':'') + (item.dNo == menuActive ? 'on button_gradient' : 'non' )" >
+              {{item.dName}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="all-list wrapper" ref="wrapper">
+        <div class="list_content">
+          <template v-for="departList in partList.departList" >
+            <div class="Body2_Selected_OnPrimary_HighEmphasis" style="background-color: rgba(0,0,0,0.05)">{{departList.dName}}</div>
+            <div class="partList_item">
+            <div v-for="(item, index) in partList[departList.dNo]" :ref="item.pno" class="detail_div2"
+                 @click="item.saleOut == 'Y' ? '' : showSelectorAdd(index,departList.dNo)">
+              <span v-show="item.saleOut == 'Y'" class="imgSpan saleOut">售完</span>
+              <span v-show="item.attrName != '' && item.saleOut == ''" class="imgSpan specialty">{{item.attrName}}</span>
+              <img :src="item.imgUrl" class="partList_item_img" draggable="false">
+              <div class="partList_item_info">
+                <div class="partList_item_info_p1">￥</div>
+                <div class="partList_item_info_price">
+                  {{ (oType == '1' ? item.priceWM : item.price) + ((oType == '1' || oType == '2') ? (item.boxPrice*item.boxQty) : 0)  }}
+                </div>
+                <div class="partList_item_info_name">{{item.name}}</div>
+              </div>
+            </div>
+            </div>
+            <div :style="'height:' + departList.departListTailHeight + 'px' "></div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!--购物车详情-->
+    <div class="shoppingCartInfo_b" @click="showShoppingCart(false)" v-show="isShowShoppingCart"></div>
+    <transition name="shopping">
+      <div class="shoppingCartInfo" v-show="isShowShoppingCart" :style="(headHeight != '0px' ? 'top:'+ headHeight : '')">
+        <div class="shoppingCartInfo_h shoppingCartInfo_h_large">
+          品项数:{{totalCount.itemCnt}}&nbsp;&nbsp;&nbsp;&nbsp; 商品数量:{{totalCount.qty}} &nbsp;&nbsp;&nbsp;&nbsp; 总金额:{{totalCount.total}}
+        </div>
+        <div class="shoppingCartInfo_d">
+          <div class="wrapper3" ref="wrapper3">
+            <div>
+            <div v-for="departList in partList.departList">
+              <div v-for="(commoditys,commoditysIndex) in partList[departList.dNo]">
+                <div v-if="commoditys.selectors && commoditys.selectors.length > 0"
+                     v-for="(selectors,selectorsIndex) in commoditys.selectors"
+                     :class="{'commodity':true,'commodity_mar':selectors.seaItemNo || selectors.smeItemNo}"
+                    @click="commoditySea(selectors,departList.dNo,commoditysIndex,selectorsIndex)">
+                  <div class="commodity_left commodity_left_empty"
+                       @click="commodityDel(selectors,departList.dNo,commoditysIndex,selectorsIndex)">
+                    <img src="icon/empty.png" />
+                  </div>
+                  <div class="commodity_left">
+                    <div class="commodity_name Body2_Black_HighEmphasis">{{selectors.name}}</div>
+                    <div class="commodity_span Caption_Black_MediumEmphasis"
+                         v-if="selectors.seaItemNo || selectors.smeItemNo">
+                      (
+                      <template v-for="smenu in selectors.smenu">
+                        <template v-for="smenuItem in smenu.smenuItem"
+                                  v-if="selectors.smeItemNo.indexOf(smenuItem.ino) >= 0">
+                          {{smenuItem.iname+';'}}
+                        </template>
+                      </template>
+                      <template v-for="seasonings in selectors.seasoning">
+                        <template v-for="seasoning in seasonings.item"
+                                  v-if="selectors.seaItemNo.indexOf(seasoning.ino) >= 0">
+                          {{seasoning.iname+';'}}
+                        </template>
+                      </template>
+                      )
+                    </div>
+                  </div>
+                  <div class="commodity_price">
+                    ￥ {{ (oType == '1' ? commoditys.priceWM : commoditys.price)
+                    + ( (oType == '1' || oType == '2') ? ((commoditys.boxPrice * commoditys.boxQty)) : 0) + selectors.seaAmt }}
+                  </div>
+                  <div class="commodity_qty">
+                    <div class="commodity_qty_img">
+                      <img class="qtyIconSize" src="icon/minus.png"
+                           @click="commodityReduce(selectors,departList.dNo,commoditysIndex,selectorsIndex)">
+                    </div>
+                    <span>{{ selectors.qty }}</span>
+                    <div v-if="commoditys.saleOut != 'Y'">
+                      <div class="commodity_qty_img">
+                        <img class="qtyIconSize" src="icon/plus.png"
+                             @click="commodityPlus(selectors,departList.dNo,commoditysIndex,selectorsIndex)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bottom_line">---------- 底线 ----------</div>
+            </div>
+          </div>
+        </div>
+        <div class="shoppingCartInfo_f">
+          <div>
+            <span style="font-size: 1.2rem;">制作要求</span>
+            <span style="font-size: 0.8rem;">(点击商品项,可修改制作要求)</span>
+            <div class="wrapper4" ref="wrapper4">
+              <div class="selector-items">
+                <div class="selector-item-choose" v-for="(item, index) in selector.values" v-if="item.showChoose">
+                  <!--一般商品-->
+                  <template v-if="selector.type=='0'">
+                    <div v-for="(sea, seaIndex) in selector.seasoning" class="option-dox">
+                      <span class="selector-label">{{sea.seaname}}</span>
+                      <div class="size-items">
+                        <div v-for="(seaItem, seaItemIndex) in sea.item">
+                          <span
+                              :class="'size-item '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')"
+                              @click="setSeasoningChoose(index, sea.seano, sea.single, seaItem.ino, seaItem.iprice)">{{seaItem.iname}}
+                            <span v-if="seaItem.iprice!=0"
+                                  :class="'size-item-price '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')">
+                              ￥{{seaItem.iprice}}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                  <!--套餐-->
+                  <template v-else>
+                    <div v-for="(sme, smeIndex) in selector.smenu" class="option-dox">
+                      <span class="selector-label">{{sme.smenuName}}</span>
+                      <span class="selector-label"
+                            style="font-size: 8px;">{{(sme.smenuNum>0?' 任选，最多选('+sme.smenuNum + ')项':'') + (sme.smenuMinNum > 0 ? '，至少选(' + sme.smenuMinNum + ')项' : '')}}</span>
+                      <div class="size-items">
+                        <div v-for="(smeitems, smenuItemIndex) in sme.smenuItem">
+                          <span
+                              :class="'size-item '+ (sme.smenuNo=='A' || item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? 'selected button_gradient':'')"
+                              @click="setPackageChoose(index, sme.smenuNo,smeitems.ino,smeitems.iprice,selector.smenu,sme.smenuNum,sme.smenuName,sme.smenuMinNum)">
+                            {{smeitems.iname}}<span v-if="smeitems.iqty>1">{{' x '+smeitems.iqty}}</span>
+                            <span v-if="smeitems.iprice!=0"
+                                  :class="'size-item-price '+ (item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? 'selected button_gradient':'')">￥{{smeitems.iprice}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-for="(sea, seaIndex) in selector.seasoning" class="option-dox">
+                      <span class="selector-label">{{sea.seaname}}</span>
+                      <div class="size-items">
+                        <div v-for="(seaItem, seaItemIndex) in sea.item">
+                          <span
+                              :class="'size-item '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')"
+                              @click="setSeasoningChoose(index, sea.seano, sea.single, seaItem.ino, seaItem.iprice)">{{seaItem.iname}}
+                            <span v-if="seaItem.iprice!=0"
+                                  :class="'size-item-price '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')">￥{{seaItem.iprice}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+                <div style="text-align: center; font-size: 6px; line-height: 20px; color:rgba(0,0,0,0.8); height: 5vh;">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn_panel">
+          <div style="width: 100%;border-bottom: 1px solid black;height: 2px;">&nbsp;</div>
+          <div style="width: 100%; display: flex; position: fixed;">
+          <div @click="showShoppingCart(false)" class="button_gradient cartDivBtn">返回点餐</div>
+          <div @click="emptyShoppingCart" class="button_gradient cartDivBtn">清空</div>
+          <div @click="jumpToPay" class="button_gradient cartDivBtn">扫码支付</div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <div class="selector">
+      <transition name="fade">
+        <div class="mask" @click="hideSelector" v-show="selector.show" :style="(headHeight != '0px' ? 'top:'+ headHeight : '')">
+          <transition name="fadeback">
+            <img class="selector-back" src="icon/back.png" v-show="selector.show" />
+          </transition>
+          <transition name="rightin">
+            <div class="selector-panel" v-show="selector.show" @click.stop.prevent="preventClick">
+              <div class="selector-items selector-items-sm-d">
+                <div class="selector-item" v-for="(item, index) in selector.values" v-if="item.showChoose">
+                  <div>
+                    <div class="selector-item-info">
+                      <div class="selector-item-info-img">
+                        <img :src="partImgs['i_'+item.pno].imgUrl" draggable="false">
+                      </div>
+                      <div class="selector-item-info2">
+                        <h6 class="H5_Black_HighEmphasis selector-item-info-name">{{item.name}}</h6>
+                        <!--<p class="Overline_Black_MediumEmphasis" style="margin-bottom:8px;">选择你的套餐偏好</p>-->
+                        <p class="selector-item-info-smA">
+                          <template v-for="(sme, smeIndex) in selector.smenu" v-if="sme.smenuNo=='A'">
+                            <template v-for="(smeitems, smenuItemIndex) in sme.smenuItem">
+                              {{(smenuItemIndex > 0 ? ' + ': '')  + smeitems.iname}}
+                            </template>
+                          </template>
+                        </p>
+                        <p class="selector-item-info-smA" style="padding-left: 10px;">
+                          <template v-for="(sme, smeIndex) in selector.smenu" v-if="sme.smenuNo!='A'">
+                            <template v-for="(smeitems, smenuItemIndex) in sme.smenuItem">
+                              {{item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? (' + '  + smeitems.iname) : ''}}
+                            </template>
+                          </template>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="selector-item-buttons">
+                      <div class="selector-item-button">
+                        <img class="selector-item-button-img" src="icon/minus.png" @click="minusSelectorCount(index)">
+                      </div>
+                      <span>{{item.qty}}</span>
+                      <div class="selector-item-button">
+                        <img class="selector-item-button-img" src="icon/plus.png" @click="addSelectorCount(index)" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapper2" ref="wrapper2">
+                    <div class="selector-items">
+                  <!--一般商品-->
+                  <template v-if="selector.type=='0'">
+                    <!--<img src="icon/icon_remove.png" class="close" @click="removeSelectorItem(index)" />-->
+                    <div v-for="(sea, seaIndex) in selector.seasoning" class="option-dox">
+                      <span class="selector-label">【{{sea.seaname}}】</span>
+                      <div class="size-items">
+                        <div v-for="(seaItem, seaItemIndex) in sea.item">
+                          <span
+                              :class="'size-item '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')"
+                              @click="setSeasoningChoose(index, sea.seano, sea.single, seaItem.ino, seaItem.iprice)">{{seaItem.iname}}
+                            <span v-if="seaItem.iprice!=0"
+                                  :class="'size-item-price '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')">￥{{seaItem.iprice}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+
+                  <!--套餐-->
+                  <template v-else>
+                    <!--<img src="icon/icon_remove.png" class="close" @click="removeSelectorItem(index)" />-->
+                    <div v-if="!isSm2">
+                    <div v-for="(sme, smeIndex) in selector.smenu"  v-if="sme.smenuNo!='A' && sme.smenuMinNum > 0"
+                         class="option-dox selector-item-sm-choose">
+                      <div class="selector-label">【{{sme.smenuName}}】
+                        <!--<span style="font-size: 8px;">
+                          {{(sme.smenuNum > 0 ? ' 最多选('+sme.smenuNum + ')项':'') + (sme.smenuMinNum > 0 ? '，至少选(' + sme.smenuMinNum + ')项' : '')}}
+                        </span>-->
+                      </div>
+                      <!--<div class="selector-label" style="font-size: 8px; padding-left: 30%;" v-if="sme.smenuNo!='A'">您的选择是:
+                        <template v-for="(smeitems, smenuItemIndex) in sme.smenuItem" v-if="item.smeItemNo.indexOf(smeitems.ino + '/')>-1">
+                          &nbsp;&nbsp;{{smeitems.iname}} &nbsp;
+                        </template>
+                      </div>-->
+                      <div class="size-items">
+                        <div v-for="(smeitems, smenuItemIndex) in sme.smenuItem">
+                          <!--<template v-if="smenuItemIndex == 0">
+                            <template v-if="smeitems.iprice > 0">
+                              <div class="sm-choose-break"></div>
+                              <div class="sm-choose-price-title">+{{smeitems.iprice}}</div>
+                            </template>
+                          </template>
+                          <template v-if="smenuItemIndex > 0">
+                            <template v-if="smeitems.iprice > 0 && smeitems.iprice != selector.smenu[smeIndex].smenuItem[smenuItemIndex-1].iprice">
+                              <div class="sm-choose-break"></div>
+                              <div class="sm-choose-price-title">+{{smeitems.iprice}}</div>
+                            </template>
+                          </template>-->
+                          <div :class="item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? ' chooseOn ' : ' chooseOff '"
+                               class="sm-choose-img"
+                               @click="setPackageChoose(index, sme.smenuNo,smeitems.ino,smeitems.iprice,selector.smenu,sme.smenuNum,sme.smenuName,sme.smenuMinNum)">
+                            <img :src="partImgs['i_'+smeitems.ino].imgUrl" draggable="false">
+                            <div class="sm-choose-name">
+                              <div class="sm-choose-name-font">
+                                <span v-if="smeitems.iprice!=0" class="size-item-price">+￥{{smeitems.iprice}}&nbsp;&nbsp;</span>
+                                {{smeitems.iname}}
+                                <span v-if="smeitems.iqty>1">{{' x '+smeitems.iqty}}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--
+                    <div v-for="(sme, smeIndex) in selector.smenu" class="option-dox">
+                      <span class="selector-label">{{sme.smenuName}}</span>
+                      <span class="selector-label"
+                            style="font-size: 8px;">{{(sme.smenuNum>0?' 任选，最多选('+sme.smenuNum + ')项':'') + (sme.smenuMinNum > 0 ? '，至少选(' + sme.smenuMinNum + ')项' : '')}}</span>
+                      <div class="size-items">
+                        <div v-for="(smeitems, smenuItemIndex) in sme.smenuItem">
+                          <span
+                              :class="'size-item '+ (sme.smenuNo=='A' || item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? 'selected button_gradient':'')"
+                              @click="setPackageChoose(index, sme.smenuNo,smeitems.ino,smeitems.iprice,selector.smenu,sme.smenuNum,sme.smenuName,sme.smenuMinNum)">
+                            {{smeitems.iname}}<span v-if="smeitems.iqty>1">{{' x '+smeitems.iqty}}</span>
+                            <span v-if="smeitems.iprice!=0"
+                                  :class="'size-item-price '+ (item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? 'selected button_gradient':'')">￥{{smeitems.iprice}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    -->
+                    <div v-for="(sea, seaIndex) in selector.seasoning" class="option-dox">
+                      <span class="selector-label">【{{sea.seaname}}】</span>
+                      <div class="size-items">
+                        <div v-for="(seaItem, seaItemIndex) in sea.item">
+                          <span
+                              :class="'size-item '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')"
+                              @click="setSeasoningChoose(index, sea.seano, sea.single, seaItem.ino, seaItem.iprice)">{{seaItem.iname}}
+                            <span v-if="seaItem.iprice!=0"
+                                  :class="'size-item-price '+ (item.seaItemNo.indexOf(seaItem.ino + '/')>-1 ? 'selected button_gradient':'')">￥{{seaItem.iprice}}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div v-else>
+                      <div v-for="(sme, smeIndex) in selector.smenu"  v-if="sme.smenuNo!='A' && sme.smenuMinNum == 0"
+                           class="option-dox selector-item-sm-choose">
+                        <div class="selector-label">【{{sme.smenuName}}】
+                          <!--<span style="font-size: 8px;">
+                            {{(sme.smenuNum > 0 ? ' 最多选('+sme.smenuNum + ')项':'') + (sme.smenuMinNum > 0 ? '，至少选(' + sme.smenuMinNum + ')项' : '')}}
+                          </span>-->
+                        </div>
+                        <!--<div class="selector-label" style="font-size: 8px; padding-left: 30%;" v-if="sme.smenuNo!='A'">您的选择是:
+                          <template v-for="(smeitems, smenuItemIndex) in sme.smenuItem" v-if="item.smeItemNo.indexOf(smeitems.ino + '/')>-1">
+                            &nbsp;&nbsp;{{smeitems.iname}} &nbsp;
+                          </template>
+                        </div>-->
+                        <div class="size-items">
+                          <div v-for="(smeitems, smenuItemIndex) in sme.smenuItem">
+                            <template v-if="smenuItemIndex == 0">
+                              <template v-if="smeitems.iprice > 0">
+                                <div class="sm-choose-break"></div>
+                                <div class="sm-choose-price-title">+{{smeitems.iprice}}</div>
+                              </template>
+                            </template>
+                            <template v-if="smenuItemIndex > 0">
+                              <template v-if="smeitems.iprice > 0 && smeitems.iprice != selector.smenu[smeIndex].smenuItem[smenuItemIndex-1].iprice">
+                                <div class="sm-choose-break"></div>
+                                <div class="sm-choose-price-title">+{{smeitems.iprice}}</div>
+                              </template>
+                            </template>
+                            <template v-if="smenuItemIndex >= imgChangeLineCnt && smenuItemIndex%imgChangeLineCnt == 0">
+                              <template v-if="smeitems.iprice > 0 && smeitems.iprice == selector.smenu[smeIndex].smenuItem[smenuItemIndex-imgChangeLineCnt].iprice">
+                                <div class="sm-choose-break"></div>
+                                <div class="sm-choose-price-title">&nbsp;</div>
+                              </template>
+                            </template>
+                            <div :class="item.smeItemNo.indexOf(smeitems.ino + '/')>-1 ? ' chooseOn ' : ' chooseOff '"
+                                 class="sm-choose-img2"
+                                 @click="setPackageChoose(index, sme.smenuNo,smeitems.ino,smeitems.iprice,selector.smenu,sme.smenuNum,sme.smenuName,sme.smenuMinNum)">
+                              <img :src="partImgs['i_'+smeitems.ino].imgUrl" draggable="false">
+                              <div class="sm-choose-name">
+                                <div class="sm-choose-name-font">
+                                  <!--<span v-if="smeitems.iprice!=0" class="size-item-price">+￥{{smeitems.iprice}}&nbsp;&nbsp;</span>-->
+                                  {{smeitems.iname}}
+                                  <span v-if="smeitems.iqty>1">{{' x '+smeitems.iqty}}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                      <div style="height: 10vh;">&nbsp;</div>
+                </div>
+                </div>
+              </div>
+              </div>
+              <div class="selector-confirm-btn button_gradient" @click.stop.prevent="confirmSelector()">{{addCartBtn}}</div>
+            </div>
+          </transition>
+        </div>
+      </transition>
+    </div>
+
+    <div class="shoppingCartInfo_b" @click="showFullPm(false)" v-show="isShowFullPm"></div>
+    <transition name="fullPm">
+      <div class="shoppingCartInfo" v-show="isShowFullPm" :style="(headHeight != '0px' ? 'top:'+ headHeight : '')" style="z-index: 102;">
+        <div class="fullPm-panel">
+          <div class="wrapper5" ref="wrapper5">
+            <div>
+              <div class="fullPm-list" v-for="(full,fIndex) in fullPmList">
+                <div class="fullPm-pmTheme">{{full.pmTheme}}
+                  <span class="fullPm-font-msg">(最多可选{{full.pmAccu == 'Y' ? parseInt(full.pmFitAmt/full.pmFullAmt): '1'}}项)</span>
+                </div>
+                <div v-for="(giftList,gIndex) in full.pmFullGift" class="commodity commodity_mar">
+                  <div class="commodity_left"
+                      @click="(full.pmAccu == 'Y' ? (full.pmFitAmt >= full.pmFullAmt*(full.pmChooseQty+1)) : (full.pmChooseQty == 0)) ? changeFullPm(fIndex, gIndex, 1) : '' ">
+                    <div class="commodity_name fullPm-item">
+                      <img :src="partImgs['i_'+giftList.gPNo].imgUrl" draggable="false">
+                      {{giftList.gPName}}
+                      <span class="fullPm-font-msg">{{giftList.gQty > 1 ? (' (x' + giftList.gQty + ')'): ''}}</span>
+                    </div>
+                  </div>
+                  <div class="commodity_price"
+                       @click="(full.pmAccu == 'Y' ? (full.pmFitAmt >= full.pmFullAmt*(full.pmChooseQty+1)) : (full.pmChooseQty == 0)) ? changeFullPm(fIndex, gIndex, 1) : '' "
+                      >￥{{giftList.gPrice}}</div>
+                  <div class="commodity_qty">
+                    <div v-if="giftList.gChoose > 0">
+                      <div class="commodity_qty_img">
+                        <img class="qtyIconSize" src="icon/minus.png" @click="changeFullPm(fIndex, gIndex, -1)">
+                      </div>
+                    </div>
+                    <span>{{ giftList.gChoose }}</span>
+                    <div class="commodity_qty_img">
+                      <div v-if="full.pmAccu == 'Y' ? (full.pmFitAmt >= full.pmFullAmt*(full.pmChooseQty+1)) : (full.pmChooseQty == 0)">
+                        <img class="qtyIconSize" src="icon/plus.png" @click="changeFullPm(fIndex, gIndex, 1)">
+                      </div>
+                      <div v-else class="qtyIconSize" >&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center; font-size: 6px; line-height: 20px; color:rgba(0,0,0,0.8); height: 3vh;">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <div class="btn_panel">
+          <div style="width: 100%;border-bottom: 1px solid black;height: 2px;">&nbsp;</div>
+          <div style="width: 100%; display: flex; position: fixed;">
+          <div @click="hideFullPm" class="button_gradient cartDivBtn">返回点餐</div>
+          <div @click="emptyShoppingCart" class="button_gradient cartDivBtn">清空</div>
+          <div @click="jumpToPay2" class="button_gradient cartDivBtn">{{fullGiftPayBtn}}</div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
+
+  <div v-show="usedPromote && usedPromote.length > 0" class="promoteMsg" id="promoteMsg"
+       style="position: fixed; bottom: 8vh; width: 100%; height: 3.5vh; display: flex;
+       font-size: 0.6em; line-height:3.5vh; background-color: rgba(255,204,158, 0.7); color: rgba(240,0,0,1); justify-content: center;">
+    <!--<div class="usedPromote1">-->
+      优惠:&nbsp;&nbsp;
+      <template v-for="(pm, pmIndex) in usedPromote">
+        {{pm.pmTheme}}&nbsp;-{{pm.pmTotalAmt.toFixed(2)}}; &nbsp;
+      </template>
+    <!--</div>-->
+  </div>
+  <div class="foot_panel">
+    <div class="footBtnCol_left footBtn" @click="totalCount.qty > 0 ? showShoppingCart(!isShowShoppingCart) : ''">
+      <img id="cartIcon" src="icon/cart.png" style="width: 2.5rem;">
+      <div class="totalCount" v-if="totalCount.qty > 0">
+        <span>{{totalCount.qty}}</span>
+      </div>
+      <span>&nbsp;&nbsp;购物车</span>
+    </div>
+    <div class="footBtn" style="width: 20%;" @click="jumpToTypeChoose">
+      <img :src="oType == '3' ? 'icon/T_EI.png' : 'icon/T_TO.png'" style="height: 90%;">
+    </div>
+    <div class="footBtnCol_right footBtn">
+      <div v-if="totalCount.total > 0" style="margin-top: 5px;"><span style="font-size: 5px;">￥</span></div>
+      <div v-if="totalCount.total > 0" style="margin-top: 5px;"><span style="font-size: 0.8em;">{{totalCount.total}}</span></div>
+      <div @click="totalCount.qty > 0 ? jumpToPay() : ''"><span>&nbsp;&nbsp;&nbsp;选好了 ></span></div>
+    </div>
+  </div>
+</div>
+<script src="js/lib/vue.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
+<script src="js/lib/jquery.mobile.custom.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.fly.min.js" charset="utf-8"></script>
+<script src="js/lib/weui.min.js?ver=1.1.4" charset="utf-8"></script>
+<script src="js/lib/weui.js" charset="utf-8"></script>
+<script src="js/lib/swiper.min.js?ver=4.5.0" charset="utf-8"></script>
+<script src="js/lib/bscroll.min.js?ver=1.15.2.1" charset="utf-8"></script>
+
+<script src="js/utils.js?ver=1.0" charset="utf-8"></script>
+<script src="js/commonAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmAPI.js?ver=1.0" charset="utf-8"></script>
+<script src="js/bm/bmOrder.js?ver=1.16" charset="utf-8"></script>
+</body>
+</html>

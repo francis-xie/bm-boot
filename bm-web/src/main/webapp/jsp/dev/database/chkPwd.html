@@ -1,0 +1,65 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!--$Header: /repository/wwwroot/wtn/jsp/dev/database/chkPwd.html,v 1.1 2007/01/31 02:05:00 harry Exp $
+  @author harry 2007/01/30 created SQL数据库测试update时密码验证框
+  Track+[10749] Reejay.wei 2008/05/28 资料库修改为数据库
+-->
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+  <META HTTP-EQUIV="Expires" CONTENT="0">
+  <title>密码验证</title>
+  <link rel="stylesheet" href="../../../js/style.css">
+  <script src="../../../js/epos.js"></script>
+  <script src="../../../js/emis.js"></script>
+</head>
+
+<body bgcolor="lightBlue" leftmargin="20" rightmargin="0">
+<form id="idForm" method="post">
+  <center>
+    <h1 class="功能标题">密码验证</h1>
+    <table cellspacing="1" class="queryTable" width="80%">
+      <tr>
+        <td class="表格_栏_文字">密码</td>
+        <td class="表格_栏_资料">
+          <input type="password" name="PWD" size="20"/>
+          <font color="red">*</font>
+        </td>
+      </tr>
+      <tr height="40">
+        <td align="center" colspan="2" class="表格_奇数列">
+          <button id="btnOK" accesskey="Y" title="确定:[F10]" class="OKButton">
+            <img src="../../../images/save.gif"> 确定(<u>Y</u>)
+          </button>&nbsp;
+          <button id="btnClose" accesskey="C" title="取消:[Esc]" class="ExitButton">
+            <img src="../../../images/cancel.gif"> 取消(<u>C</u>)
+          </button>
+        </td>
+      </tr>
+    </table>
+  </center>
+</form>
+</body>
+</html>
+
+<script for="window" event="onload">
+  //设焦点
+  document.all.PWD.focus();
+</script>
+
+<script for="btnOK" event="onclick">
+  if (!emisEmptyValid(document.all.PWD, "密码")) return;
+  window.returnValue = document.all.PWD.value;
+  window.close();
+</script>
+
+<script for="btnClose" event="onclick">
+  window.returnValue = "";
+  window.close();
+</script>
+
+<script for="document" event="onkeydown">
+  emisQryOnKeyDown();
+</script>

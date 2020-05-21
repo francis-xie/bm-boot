@@ -1,0 +1,311 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+  <META HTTP-EQUIV="Expires" CONTENT="0">
+  <title>資訊室作業</title>
+  <style>
+    table { font:10pt Arial; }
+    .odd_row  { background-color:#99ccff; }
+    .even_row { background-color:#ffffcc; }
+  </style>
+</head>
+<P>
+  程式參考工具：
+<table width='100%' border='2' cellspacing='2' cellpadding='2' bgcolor='papayawhip'>
+  <tr class='odd_row'>
+    <td width='30%'><A href='javascript:ePosDocFunc();'>VENUS 程式資料庫</A></td>
+    <td>ePOS Library Document</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:XMLFunc();'>ePOS XML 標籤說明</A></td>
+    <td>ePOS XML Tag Support and Description</td>
+  </tr>
+  <tr class='odd_row'>
+    <td><A href='javascript:XMLSampleFunc();'>ePOS XML 程式範例</A></td>
+    <td>ePOS Samples</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:FAQFunc();'>FAQ 問答集</A></td>
+    <td>Frequently Asked Questions</td>
+  </tr>
+  <tr class='odd_row'>
+    <td width='30%'><A href='javascript:viewsrc();'>檢視原始檔與設定檔</A></td>
+    <td>ePOS Library Document</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:schema();'>資料庫schema</A></td>
+    <td>資料庫各資料表之結構</td>
+  </tr>
+  <tr class='odd_row'>
+    <td><A href='javascript:doc();'>專案檔</A></td>
+    <td>檢視本專案之各式檔</td>
+  </tr>
+</table>
+<P>
+  測試程式：
+<table width="100%" border="1">
+  <tr class='odd_row'>
+    <td width="30%"><A href='javascript:DbFunc();'>SQL 資料庫測試</A></td>
+    <td>SQL Database Instruction Test</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:ChineseFunc();'>中文字傳遞測試</A></td>
+    <td>Transmit Chinese by URL, doGet/doPost, window.open & showModleDialog Test</td>
+  </tr>
+</table>
+<P>
+  監控程式：
+<table width="100%" border="1">
+  <tr class='odd_row'>
+    <td width="30%"><A href='javascript:UserMonitorFunc()'>用戶登入狀態</A></td>
+    <td>Users Monitor, Include Login/Logout & Last Access Time</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:DbMonitorFunc()'>資料庫監視器</A></td>
+    <td>Database and Connection Pool Monitor</td>
+  </tr>
+  <tr class='odd_row'>
+    <td><A href='javascript:SchedMonitorFunc()'>自動工作排程</A></td>
+    <td>Schedule Monitor</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:ThreadFunc()'>目前執行緒啟動狀態</A></td>
+    <td>Thread Information</td>
+  </tr>
+  <tr class='odd_row'>
+    <td><A href='javascript:MailQMonitorFunc()'>郵件傳送狀態</A></td>
+    <td>Mail Send & Queue Information</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:SQLTop10()'>SQL執行時間最長20名</A></td>
+    <td>SQL Top 20</td>
+  </tr>
+  <tr class='odd_row'>
+    <td><A href='javascript:SQLErr20()'>最近20個 SQL 執行 Error </A></td>
+    <td>SQL Error 20</td>
+  </tr>
+  <tr class='even_row'>
+      <td><A href='javascript:UploadMon()'>上传监视器</A></td>
+      <td>Upload Monitor</td>
+  </tr>
+</table>
+<P>
+  系統相關資訊：
+<table width="100%" border="1">
+  <tr class='odd_row'>
+    <td width="30%"><A href='javascript:ServerFunc()'>ServletContext 資訊</A></td>
+    <td>Show ServletContext Information</td>
+  </tr>
+  <tr class='even_row'>
+    <td><A href='javascript:JVMPropFunc()'>JVM 資訊</A></td>
+    <td>Show JVM's Properties</td>
+  </tr>
+  <tr class='odd_row'>
+    <td><A href='javascript:ServletFunc()'>Servlet 資訊</A></td>
+    <td>Show Servlet, Session ID & Cookies Information</td>
+  </tr>
+</table>
+<P>
+  資源重載：
+<table width="100%" border="1">
+  <tr class='odd_row'>
+    <td><A href='javascript:emisPropFunc()'>emisProp重新載入</A></td>
+    <td>emisProp Table Reload</td>
+  </tr>
+  <tr class='even_row'>
+    <td width="30%"><A href='javascript:SQLCacheFunc()'>SQLCache重新載入</A></td>
+    <td>SQLCache Reload</td>
+  </tr>
+  <tr class='odd_row'>
+    <td width="30%"><A href='javascript:SchedFunc()'>排程資料重新載入</A></td>
+    <td>SQLCache Reload</td>
+  </tr>
+  <tr class='even_row'>
+    <td width="30%"><A href='javascript:FieldFormatFunc()'>FieldFormat重新載入</A></td>
+    <td>FieldFormat Reload</td>
+  </tr>
+  <tr class='odd_row'>
+    <td width="30%"><A href='javascript:PropertiesFunc()'>Properties重新載入</A></td>
+    <td>Properties Reload</td>
+  </tr>
+  <tr class='even_row'>
+    <td width="30%"><A href='javascript:RunSqlScript()'>执行SQL Script<font color='red'>(SQL文件请固定放于服务器上的wwwroot/data/sqlscript目录下)</font></A></td>
+    <td>Run Sqlscript</td>
+  </tr>
+  <tr class='odd_row'>
+    <td width="30%"><A href='javascript:DownloadLog()'>Resin log下载</A></td>
+    <td>Resin log Download</td>
+  </tr>
+</table>
+</html>
+
+<script>
+  function ePosDocFunc()
+  {
+    window.open("libdoc/index.html","ePosDoc",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function XMLFunc()
+  {
+    window.open("xml/index.htm","XML",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function XMLSampleFunc()
+  {
+    window.open("xml/sample.xml","XMLSample",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function FAQFunc()
+  {
+    window.open("http://intranet.emis.com.tw/tech/epos/faq.htm","FAQ",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function DbFunc()
+  {
+    window.open("database/db.jsp","DB",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function ChineseFunc()
+  {
+    window.open("chinese/chinese.html","CHINESE",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function UserMonitorFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisUserMonitor","UserMonitor",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function DbMonitorFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisDbMonitor","DbMonitor",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function SchedMonitorFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisSchedMonitor","SchedMonitor",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function ThreadFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisThread","Thread",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function MailQMonitorFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisMailQMonitor","MailQMonitor",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function SQLTop10()
+  {
+    window.open("../../servlet/com.emis.servlet.emisSQLTop10","SQLTop10",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function SQLErr20()
+  {
+    window.open("../../servlet/com.emis.servlet.emisSQLErr20","SQLErr20",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function UploadMon()
+  {
+    window.open("../../servlet/com.emis.servlet.emisUploadMonitor","Upload",
+        "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+            ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function ServerFunc()
+  {
+    window.open("info/server.jsp","SERVER",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function JVMPropFunc()
+  {
+    window.open("info/prop.jsp","JVMProp",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function ServletFunc()
+  {
+    window.open("info/servlet.jsp","SERVLET",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function SessionPropFunc()
+  {
+    window.open("info/session.jsp","SESSION",
+        "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+        ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+
+  function emisPropFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisReloader?target=prop","emisProp",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function SQLCacheFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisReloader?target=sqlcache","SQLCache",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function SchedFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisReloader?target=sched","SCHED",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function viewsrc() {
+    window.open("viewsrc/viewsrc.jsp","viewsrc",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function schema() {
+    window.open("dba/dba_frame.htm","dba",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function doc() {
+    window.open("../../doc/index.htm","doc",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+
+  function FieldFormatFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisReloader?target=fieldformat","fieldFormat",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+
+  function PropertiesFunc()
+  {
+    window.open("../../servlet/com.emis.servlet.emisReloader?target=Properties","Properties",
+       "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+       ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function RunSqlScript(){
+    window.open("database/runSqlscript.jsp?DIR=data/sqlscript","RunSqlScript",
+            "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+            ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+  function DownloadLog(){
+    window.open("speRequest/SpecialRequest.jsp?act=showResinLogs","DownloadLog",
+            "width=" + (screen.availWidth-10) + ",height=" + (screen.availHeight-50) +
+            ",top=0,left=0,status=yes,scrollbars=yes,resizable=no,hotkeys=no").focus();
+  }
+</script>

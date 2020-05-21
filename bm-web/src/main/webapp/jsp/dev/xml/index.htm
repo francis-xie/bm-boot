@@ -1,0 +1,170 @@
+<!--
+  Track+[10749] Reejay.wei 2008/05/28 资料库修改为数据库
+-->
+<html>
+<title>ePOS XML 标签说明</title>
+<head>
+ <style>
+   table { font:10pt Arial; }
+ </style>
+</head>
+<body>
+ <table width='100%' border='2' cellspacing='2' cellpadding='2' bgcolor='papayawhip'>
+   <tr>
+     <td width="10%">Tag</td>
+     <td width="45%">描述</td>
+     <td width="30%">属性</td>
+     <td width="10%">范围</td>
+     <td width="5%">值</td>
+   </tr>
+   <tr>
+     <td style="color:red">business</td>
+     <td>business document 的 root tag</td>
+     <td>&nbsp;</td>
+     <td>&nbsp;</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">act</td>
+     <td>定义一个动作区块</td>
+     <td><font color=red>name</font>,指定动作的名称,emisBusiness.process(name) 会用到</td>
+     <td>在 business 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">showdata</td>
+     <td>定义一个产生 XML Data 和与之产生 binding 的 Table 之区块,通常会内含一个
+         datasrc 和一个 tabledef 定义, 此 datasrc 和 tabledef 通常会产生 binding
+     </td>
+     <td><font color=red>tableid</font>,指定此 showdata 的主要 table 的 id , 此 table 就是和 xml 产生
+          binding 的 table 物件 , 此属性会影响到自动产生的 JavaScript 的变数名称</td>
+
+     <td>在 act 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">datasrc</td>
+     <td>指定一个产生 XML Data 之区块 , 内含的 SQL 应该为 Query 的 SQL(会产生 resultSet 的)</td>
+
+     <td><font color=red>id</font>,指定此 XML data island 在 html 中的 id , 要和 table 的 datasrc 所
+         指定的 id 相同, <font color=red>cdata</font> , 指定为某些栏位产生 XML 的 CDATA tag , 此属性用来指定某
+         些数据库栏位内的资料会和 XML 的保留字相冲(如住址) </td>
+     <td>在 showdata 之下</td>
+     <td>内含一个 SQL,一个以下的param,但不含 tokenizer tag</td>
+   </tr>
+   <tr>
+     <td style="color:red">navigator</td>
+     <td>产生一个 toolbar ,有第一页,上一页,下一页和最后一页四个按钮, 此 tag 是用于
+            table 有写 thead , tbody 的情形</td>
+     <td>&nbsp;</td>
+     <td>任意,但必需在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">databrowser</td>
+
+     <td>产生一个 toolbar ,有第一笔,上一笔,下一笔和最后一笔四个按钮, 此 tag 是用于
+            table 只有写 tbody 的情形(扁平式 data binding)</td>
+     <td><font color=red>datasrc</font>,指定此 toolbar 所使用的 XML DataSource</td>
+     <td>任意,但必需在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">showrecordnum</td>
+     <td>产生一个 几笔分之几笔 的区块</td>
+     <td>&nbsp;</td>
+     <td>任意,但必需在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">showpagenum</td>
+     <td>产生一个 几页分之几页 的区块</td>
+     <td>&nbsp;</td>
+     <td>任意,但必需在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">button</td>
+     <td>会将 button 转成 input type=button 的写法</td>
+     <td><font color=red>name</font>,转换成 input type 的 name</td>
+     <td>任意,但必需在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">tabledef</td>
+     <td>指定一个 table 的定义</td>
+     <td><font color=red>clickid</font>,指定 table 的 tbody 的 tr 的 id,系统会自动产生 onclick event 来和 navigator tag 产生 binding </td>
+     <td>必需在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">database</td>
+     <td>定义一个新增,修改,删除的数据库动作</td>
+     <td>&nbsp;</td>
+     <td>在 act tag 之下</td>
+     <td>内含一个 sql,param(optional),tokenizer(optional)</td>
+   </tr>
+   <tr>
+     <td style="color:red">sql</td>
+     <td>定义一个 SQL 字串</td>
+     <td>&nbsp;</td>
+     <td>必需在 database 或 datasrc tag 之下</td>
+     <td>SQL String</td>
+   </tr>
+   <tr>
+     <td style="color:red">param</td>
+     <td>定义一个 sql 所需的参数</td>
+     <td>&nbsp;</td>
+     <td>必需在 database 或 datasrc tag 之下</td>
+     <td>内含多个 pname , 或 where </td>
+   </tr>
+   <tr>
+     <td style="color:red">pname</td>
+     <td>定义一个参数</td>
+     <td><font color=red>type</font>,指定参数的型态,目前支援 string,float,int,sequence 等四种 type,
+         sequence 的 type 又有额外的 <font color=red>name</font>,<font color=red>autodrop</font> 等属性,其中 name 可以指定
+         数据库中 sequence 的 name, autodrop 可以指定每月或每年自动将此 sequence
+         drop 掉 (重新归零) , sequence 必需先手动建立, drop 的管理会用到数据库的 SEQ 这个 Table
+     </td>
+     <td>必需在 param 之下</td>
+     <td>
+         内含参数从 request.getParameter(?) 时所用的名称 , 如果 type 是 sequence 的话,
+         此值为一个 format ,如 %Y%M%4S  代表为 年(090) 月 (01) 和一个自动补四位的
+         sequence 值,所以会产生 090010004 的值
+     </td>
+   </tr>
+   <tr>
+     <td style="color:red">where</td>
+     <td>定义一个参数, 和 pname 不同的是参数为 null 时,会自动转换成 '@' 或 -65535 </td>
+     <td><font color=red>type</font>,指定参数的型态,目前支援 string,float,int</td>
+     <td>必需在 param 之下</td>
+     <td>内含参数从 request.getParameter(?) 时所用的名称</td>
+   </tr>
+   <tr>
+     <td style="color:red">tokenizer</td>
+     <td>如果是批次更新或删除的话,将参数用逗号分开并指定 tokenizer 的话,
+         系统会自动将字串拆开,并分开执行此 SQL
+     </td>
+     <td>&nbsp</td>
+     <td>在 database 之下</td>
+     <td>true 或 false , 不写 tokenizer 的话为 false (default)</td>
+   </tr>
+   <tr>
+     <td style="color:red">sqlcache</td>
+     <td>产生一个 cache 的 sql result, 通常用来做 list box , 此 tag 会用到数据库的 SQLCache 这个 Table</td>
+     <td><font color=red>name</font>,此 name 对映到 SQLCACHE table 的 SQLNAME 栏位</td>
+     <td>任意,但必须在 showdata 之下</td>
+     <td>&nbsp;</td>
+   </tr>
+   <tr>
+     <td style="color:red">其他</td>
+     <td>所以没有被系统认定的 tag 会照原本的样子输出,需要注意的是要符合 XML 的 format,
+         如 attribute 要用双引号包起来,所有 tag 要有结尾 tag,不然请用 CDATA 将其包起来
+     </td>
+     <td>&nbsp;</td>
+     <td>&nbsp;</td>
+     <td>&nbsp;</td>
+   </tr>
+ </table>
+</body>
+</html>

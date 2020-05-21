@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Written to assume that classpath is rooted in the current directory. -->
+<!-- So this should be OK if you make this script in the root of a filesystem. -->
+<!-- If not, you may prefer to adjust the basedir, or move some directories around. -->
+<!-- The idea is that both Ant and NetBeans have to know what the package root is -->
+<!-- for the classes in your application. -->
+<project basedir="c:/resin/classes" default="all" name="emis">
+
+    <!-- Don't worry if you don't know the Ant syntax completely or need help on some tasks! -->
+    <!-- The standard Ant documentation is bundled. See Help | Shortcuts | Ant 1.3 Documentation. -->
+
+    <target name="init">
+        <!-- You can set up any variables you want used throughout the script here. -->
+        <property name="hello" value="world"/>
+        <!-- To use e.g. Jikes, uncomment this line. -->
+        <!-- (Or make the same change in Tools | Options | Ant Settings | Properties.) -->
+        <!-- <property name="build.compiler" value="jikes"/> -->
+        <!-- You might like to set up some overridable paths, etc.: -->
+        <property name="jdk" value="c:/jdk1.3/lib/tools.jar"/>
+        <property name="servlet" value="c:/resin/lib/jsdk23.jar"/>
+        
+        <property name="chart"   value="c:/resin/lib/jcchart451k.jar"/>
+        <property name="crypt1"  value="c:/resin/lib/jce1_2_1.jar"/>
+        <property name="crypt2"  value="c:/resin/lib/local_policy.jar"/>
+        <property name="crypt3"  value="c:/resin/lib/sunjce_provider.jar"/>
+        <property name="crypt4"  value="c:/resin/lib/US_export_policy.jar"/>
+        
+        <property name="oracle" value="c:/resin/lib/classes12.jar"/>
+        <property name="inet1"  value="c:/resin/lib/Opta2000.jar"/>
+        <property name="inet2"  value="c:/resin/lib/optit.jar"/>
+        <property name="jdbc2"  value="c:/resin/lib/jdbc2_0-stdext.jar"/>
+        
+        <property name="mail1" value="c:/resin/lib/activation.jar"/>
+        <property name="mail2" value="c:/resin/lib/imap.jar"/>
+        <property name="mail3" value="c:/resin/lib/mail.jar"/>
+        <property name="mail4" value="c:/resin/lib/mailapi.jar"/>
+        <property name="mail5" value="c:/resin/lib/pop3.jar"/>
+        <property name="mail6" value="c:/resin/lib/smtp.jar"/>
+        
+        <property name="xml1" value="c:/resin/lib/dom.jar"/>
+        <property name="xml2" value="c:/resin/lib/sax.jar"/>
+        <property name="xml3" value="c:/resin/lib/jaxp.jar"/>
+        
+        <property name="pervasive" value="c:/resin/lib/pvjdbc2.jar"/>
+        <property name="junit" value="c:/resin/lib/junit.jar"/>
+        <!--property name="12" value="c:/resin/lib/pervasiveJDBC.jar"/-->
+        <!--property name="14" value="c:/resin/lib/psql.jar"/-->
+        <!--property name="15" value="c:/resin/lib/pvideoj.jar"/-->
+    </target>
+    
+    <target depends="init" name="compile">
+        <!-- Both srcdir and destdir should be package roots. -->
+        <!-- They could be different of course; in that case NetBeans can also be set -->
+        <!-- up to compile to a different filesystem in the same way; see Compiler Types: -->
+        <javac debug="true" deprecation="true" destdir="." srcdir=".">
+            <!-- To add something to the classpath: -->
+            <classpath>
+                <pathelement location="${jdk}"/>
+                <pathelement location="${servlet}"/>
+                <pathelement location="${chart}"/>
+                <pathelement location="${crypt1}"/>
+                <pathelement location="${crypt2}"/>
+                <pathelement location="${crypt3}"/>
+                <pathelement location="${crypt4}"/>
+                <pathelement location="${oracle}"/>
+                <pathelement location="${inet1}"/>
+                <pathelement location="${inet2}"/>
+                <pathelement location="${mail1}"/>
+                <pathelement location="${mail2}"/>
+                <pathelement location="${mail3}"/>
+                <pathelement location="${mail4}"/>
+                <pathelement location="${mail5}"/>
+                <pathelement location="${mail6}"/>
+                <pathelement location="${xml1}"/>
+                <pathelement location="${xml2}"/>
+                <pathelement location="${xml3}"/>
+                <pathelement location="${jdbc2}"/>
+                <pathelement location="${pervasive}"/>
+                <pathelement location="${junit}"/>
+            </classpath>
+            <!-- To exclude some files: -->
+            <!--             <exclude name="com/foo/SomeFile.java"/>             <exclude name="com/foo/somepackage/"/>             -->
+        </javac>
+    </target>
+
+    <target depends="init,compile" if="NEED_JAR" name="jar">
+        <!-- To make a standalone app: -->
+        <!-- 1. Create a myapp.mf manifest somewhere. -->
+        <!-- 2. Put in it: -->
+        <!--    Manifest-Version: 1.0 -->
+        <!--    Main-Class: com.foo.Main -->
+        <!-- 3. Pass to <jar>: manifest="myapp.mf" -->
+        <jar basedir="." compress="true" jarfile="emis.jar">
+            <exclude name="**/*.java"/>
+            <exclude name="**/*.form"/>
+            <exclude name="myapp.mf"/>
+            <exclude name="myapp.jar"/>
+            <exclude name="apidoc"/>
+        </jar>
+    </target>
+
+    <target depends="init,jar" description="Build everything." name="all">
+        <echo message="Application built. Hello ${hello}!"/>
+    </target>
+
+    <target depends="init,all" description="Try running it." name="test">
+        <java classname="com.foo.Main" failonerror="true" fork="true">
+            <classpath>
+                <pathelement location="."/>
+            </classpath>
+            <!-- Pass some args, perhaps: -->
+            <arg value="-myfile"/>
+            <!-- Will be given as an absolute path: -->
+            <arg file="myfile.txt"/>
+        </java>
+    </target>
+
+    <target depends="init" description="Javadoc for my API." name="javadoc">
+        <mkdir dir="apidoc"/>
+        <javadoc destdir="apidoc" packagenames="com.foo..*,com.foo.myapi.*">
+            <sourcepath>
+                <pathelement location="."/>
+            </sourcepath>
+        </javadoc>
+    </target>
+
+    <target depends="init" description="Clean all build products." name="clean">
+        <delete>
+            <fileset dir=".">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    <delete file="myapp.jar"/>
+        <delete dir="apidoc"/>
+    </target>
+
+</project>

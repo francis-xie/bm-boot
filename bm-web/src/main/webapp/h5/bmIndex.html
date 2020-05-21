@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- $Id$ -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="群丰软件" name="Keywords">
+  <meta name="description" content="TODO">
+  <meta name="author" content="TODO 群丰软件">
+  <link rel="stylesheet" href="css/weui.min.css?ver=2.0.0">
+  <link href="keyboard/keyboard/css/jquery-ui.min.css" rel="stylesheet">
+  <link href="keyboard/keyboard/css/keyboard.css?ver=1.0" rel="stylesheet">
+  <!--<link href="keyboard/keyboard/css/keyboard-basic.css?ver=3" rel="stylesheet">-->
+  <link rel="stylesheet" href="css/base_default.css?ver=1.0">
+  <link rel="stylesheet" href="css/bm/bmIndex.css?ver=1.0">
+  <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="css/bm/bmIndex_large.css?ver=1.0"/>
+  <title>自助点餐系统</title>
+</head>
+<body>
+<div id="app" v-cloak>
+  <!-- 固定标题 -->
+  <!--<div class="head_panel">-->
+    <!--<div style="height: 0; display: none;">-->
+      <!--<input type="button" @click="fullScreenOpen" value="开启全屏">-->
+      <!--<input type="button" @click="fullScreenExit" value="退出全屏">-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!-- 主界面 -->
+  <div class="body_panel">
+    <iframe id="ifmOrder" name="ifmOrder"></iframe>
+
+    <div v-if="page=='login'" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: 999; "
+         class="backgroundColor">
+      <div class="H3_Primary" style="text-align: center;margin-top: 50px;">自助点餐系统</div>
+
+      <div style="position:absolute;z-index: 2; width: 100%; top: 25%;" class=" H5_Primary_OnSurface">
+        <div class="body_detail">
+          <div class="Body2_Selected_OnSurface_Disabled detail_name">后台地址</div>
+          <div class="detail_input">
+            <input id="sPosUrl" v-model="loginData.sPosUrl" class="Body2_Primary detail_input_text"
+                   placeholder="请输入后台地址"/>
+          </div>
+          <div class="detail_scan" @click="showKeyboard('sPosUrl')">
+            <img src="keyboard/keyboard.png">
+          </div>
+        </div>
+        <div class="body_detail">
+          <div class="Body2_Selected_OnSurface_Disabled detail_name">门店编号</div>
+          <div class="detail_input">
+            <input id="sNo" v-model="loginData.sNo" class="Body2_Primary detail_input_text" placeholder="请输入门店编号"/>
+          </div>
+          <div class="detail_scan" @click="showKeyboard('sNo')">
+            <img src="keyboard/keyboard.png">
+          </div>
+        </div>
+        <div class="body_detail">
+          <div class="Body2_Selected_OnSurface_Disabled detail_name">机&nbsp;&nbsp;台&nbsp;&nbsp;号</div>
+          <div class="detail_input">
+            <input id="sIdNo" v-model="loginData.sIdNo" class="Body2_Primary detail_input_text" placeholder="请输入机台号"/>
+          </div>
+          <div class="detail_scan" @click="showKeyboard('sIdNo')">
+            <img src="keyboard/keyboard.png">
+          </div>
+        </div>
+        <div class="body_detail">
+          <div class="Body2_Selected_OnSurface_Disabled detail_name">登录账号</div>
+          <div class="detail_input">
+            <input id="uId" v-model="loginData.uId" class="Body2_Primary detail_input_text" placeholder="请输入登录账号"/>
+          </div>
+          <div class="detail_scan" @click="showKeyboard('uId')">
+            <img src="keyboard/keyboard.png">
+          </div>
+        </div>
+        <div class="body_detail">
+          <div class="Body2_Selected_OnSurface_Disabled detail_name">登录密码</div>
+          <div class="detail_input">
+            <input id="uPwd" v-model="loginData.uPwd" class="Body2_Primary detail_input_text" placeholder="请输入登录密码"/>
+          </div>
+          <div class="detail_scan" @click="showKeyboard('uPwd')">
+            <img src="keyboard/keyboard.png">
+          </div>
+        </div>
+        <div class="Caption_Black_MediumEmphasis"
+             style="margin: 12px auto 7px; text-align: center; width: 100%; font-size: 0.75rem;">
+          首次使用，请输入登录信息
+        </div>
+        <div style="text-align: center;">
+          <input type="button" class="button_gradient Button_White btnSave" @click="openSales" value="进入点餐"/>
+        </div>
+        <!--<input id="keyboard" type="text">-->
+      </div>
+      <div style="position: fixed; bottom: 0; width: 98%; text-align: right; font-size: 12px;">{{bmVersion == '' ? '' : 'version:' + bmVersion}}</div>
+    </div>
+  </div>
+
+  <!-- 页脚(导航) -->
+  <div class="foot_panel">
+  </div>
+</div>
+<script src="js/lib/vue.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.min.js" charset="utf-8"></script>
+<script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
+<script src="js/lib/jquery.mobile.custom.min.js" charset="utf-8"></script>
+<script src="js/lib/weui.min.js?ver=1.1.4" charset="utf-8"></script>
+<script src="js/lib/weui.js" charset="utf-8"></script>
+
+<script src="keyboard/keyboard/js/jquery-ui-custom.min.js"></script>
+<script src="keyboard/keyboard/js/jquery.keyboard.js?ver=1.0"></script>
+<!-- keyboard extensions (optional) -->
+<script src="keyboard/keyboard/js/jquery.mousewheel.js"></script>
+<!--<script src="keyboard/keyboard/js/jquery.keyboard.extension-typing.js"></script>-->
+<!--<script src="keyboard/keyboard/js/jquery.keyboard.extension-autocomplete.js"></script>-->
+<!--<script src="keyboard/keyboard/js/jquery.keyboard.extension-caret.js"></script>-->
+
+<script src="js/utils.js?ver=1.0" charset="utf-8"></script>
+<!--<script src="js/commonAPI.js?ver=1.0" charset="utf-8"></script>-->
+<script src="js/bm/bmAPI.js?ver=1.1" charset="utf-8"></script>
+<script src="js/bm/bmIndex.js?ver=1.6" charset="utf-8"></script>
+</body>
+<script>
+  $(function () {
+    $('#sPosUrl').keyboard({
+      openOn: null,
+      stayOpen: true,
+      layout: 'qwerty'
+    });
+    $('#sNo').keyboard({
+      openOn: null,
+      stayOpen: true,
+      layout: 'qwerty'
+    });
+    $('#sIdNo').keyboard({
+      openOn: null,
+      stayOpen: true,
+      layout: 'qwerty'
+    });
+    $('#uId').keyboard({
+      openOn: null,
+      stayOpen: true,
+      layout: 'qwerty'
+    });
+    $('#uPwd').keyboard({
+      openOn: null,
+      stayOpen: true,
+      layout: 'qwerty'
+    });
+//    $('#keyboard').keyboard();
+  });
+</script>
+</html>

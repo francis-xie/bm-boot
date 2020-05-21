@@ -1,0 +1,12 @@
+<%--$Id: ymPrompt_inc.htm 13350 2018-12-18 08:39:42Z andy.he $
+2013/07/24 Joe 修正预设查询的取消按钮无效问题
+--%>
+<%
+com.emis.db.emisProp ymPrompt_incProp = com.emis.db.emisProp.getInstance(application);
+  String ymPrompt_incJsVersion = ymPrompt_incProp.get("EP_SYS_JS_VERSION", "0");
+%>
+<script type="text/javascript" src="<%= request.getContextPath()%>/js/ymPrompt/4.0/ymPrompt_Ex.js?var=<%=ymPrompt_incJsVersion%>"></script>
+<link rel="stylesheet" id='skin' type="text/css"
+      href="<%= request.getContextPath()%>/js/ymPrompt/4.0/skin/qq/ymPrompt.css"/>
+<script type="text/javascript" src="<%= request.getContextPath()%>/js/ymPrompt/4.0/ymPrompt_source.js?var=<%=ymPrompt_incJsVersion%>"></script>
+<script type="text/javascript" src="<%= request.getContextPath()%>/js/ymPrompt/4.0/ymPrompt_emis.js?var=c<%=ymPrompt_incJsVersion%>"></script>
