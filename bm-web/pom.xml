@@ -6,6 +6,7 @@
 	<groupId>com.emis</groupId>
 	<artifactId>bm-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>bm-web</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -16,24 +17,47 @@
 	</parent>
 
 	<dependencies>
-		<!-- servlet依赖. -->
+		<!--bm通用模块-->
 		<!--<dependency>
+			<groupId>com.emis</groupId>
+			<artifactId>bm-src3</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.emis</groupId>
+			<artifactId>bm-src</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>-->
+
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+		<!-- servlet依赖. -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-		</dependency>-->
-		<!--<dependency>
+			<!--<scope>provided</scope>-->
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-		</dependency>-->
-		<!--<dependency>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-		</dependency>-->
+		</dependency>
 		<!-- tomcat的支持.-->
-		<!--<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency>-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+			<!--<scope>provided</scope>-->
+        </dependency>
 	</dependencies>
 
 	<build>
