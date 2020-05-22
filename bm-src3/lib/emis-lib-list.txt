@@ -1,0 +1,27 @@
+rem SRC3基本需要的Jar, javamail-14.jar是一个特殊的Jar要注意手动植入
+
+ant.jar
+axis.jar
+classes12.jar
+clean-emislib.bat
+commons-codec-1.3.jar
+commons-httpclient-3.0.jar
+commons-io-1.2.jar
+commons-lang.jar
+commons-logging.jar
+dom4j-1.6.1.jar
+emis-lib-list.txt
+hessian-3.0.13.jar
+itext-2.0.4.jar
+iTextAsian.jar
+jaxrpc.jar
+jtds-1.2.2.jar
+junit.jar
+list.txt
+log4j-1.2.8.jar
+Opta2000.jar
+poi-3.0-rc4-20070503.jar
+poi-contrib-3.0-rc4-20070503.jar
+poi-scratchpad-3.0-rc4-20070503.jar
+sqljdbc.jar
+xlrd.jar
