@@ -18,7 +18,7 @@
 
 	<dependencies>
 		<!--bm通用模块-->
-		<!--<dependency>
+		<dependency>
 			<groupId>com.emis</groupId>
 			<artifactId>bm-src3</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -27,7 +27,7 @@
 			<groupId>com.emis</groupId>
 			<artifactId>bm-src</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>-->
+		</dependency>
 
         <dependency>
             <groupId>org.mybatis.generator</groupId>
