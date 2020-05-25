@@ -1,0 +1,1 @@
+在cmd窗口，切换到redis安装目录，执行redis的启动命令：redis-server.exe redis.windows.conf

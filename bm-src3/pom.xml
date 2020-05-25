@@ -278,7 +278,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/itext2_rq.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>itext-2.0.4</artifactId>
             <version>3.3.1</version>
@@ -291,7 +291,7 @@
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/iText-2.1.0.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>iTextAsian</artifactId>
@@ -397,13 +397,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/jspSmartUpload.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>jtds-1.2.2</artifactId>
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/jtds-1.2.2.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>junit</artifactId>
@@ -509,7 +509,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/slf4j-api-1.7.7.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>slf4j-simple-1.7.7</artifactId>
             <version>3.3.1</version>
@@ -522,7 +522,7 @@
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/spring.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>sqljdbc</artifactId>
@@ -672,13 +672,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/portlet-10.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>pro</artifactId>
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/pro.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>quercus</artifactId>
@@ -686,13 +686,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/quercus.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>resin</artifactId>
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/resin.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>resin-jdk15</artifactId>
@@ -700,13 +700,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/resin-jdk15.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>resinboot</artifactId>
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/resinboot.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>script-10</artifactId>
