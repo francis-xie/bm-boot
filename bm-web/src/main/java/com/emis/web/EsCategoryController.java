@@ -36,7 +36,7 @@ public class EsCategoryController {
         // 设置分页
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         //Pageable pageable = new PageRequest(start, size, sort);
-        Pageable pageable = PageRequest.of(start, size, sort);
+        Pageable pageable = PageRequest.of(start, size);
         Page<Category> page = categoryDAO.search(QueryBuilders.matchAllQuery(), pageable);
         m.addAttribute("page", page);
         return "esListCategory";

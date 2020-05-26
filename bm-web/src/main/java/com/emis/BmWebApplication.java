@@ -9,8 +9,9 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class BmWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BmWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
+        SpringApplication.run(BmWebApplication.class, args);
+    }
 
 }
