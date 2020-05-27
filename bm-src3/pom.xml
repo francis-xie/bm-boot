@@ -215,13 +215,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/ezmorph-1.0.6.jar</systemPath>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>fastjson</artifactId>
             <version>3.3.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/fastjson.jar</systemPath>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.objectweb.asm</groupId>
             <artifactId>groovy-all-1.5.5</artifactId>

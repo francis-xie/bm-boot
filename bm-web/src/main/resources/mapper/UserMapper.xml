@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emis.security.dao.UserMapper">
+
+    <resultMap type="com.emis.security.model.UserModel" id="resultUserModelMap">
+        <id property="userId" column="user_id"/>
+        <result property="account" column="account"/>
+        <result property="userName" column="user_name"/>
+        <result property="sex" column="sex"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="state" column="state"/>
+        <result property="idCard" column="id_card"/>
+        <result property="password" column="password"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="roleModels" ofType="com.emis.security.model.RoleModel" select="findRoleByUserId"
+                    column="user_id">
+            <id property="roleId" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+        </collection>
+        <collection property="permissionModels" ofType="com.emis.security.model.PermissionModel"
+                    select="findPermissionByRoleId" column="user_id">
+            <id property="permissionId" column="permission_id"/>
+            <result property="permissionName" column="permission_name"/>
+            <result property="permissionValue" column="permission_value"/>
+        </collection>
+    </resultMap>
+    <sql id="userSelectColumn">
+        user_id,account,password,user_name,phone,email,sex,id_card,state,create_time,update_time
+    </sql>
+    <sql id="roleSelectColumn">
+        r.role_id,r.role_name,r.role_title,r.description,r.create_time,r.update_time,r.state
+    </sql>
+    <sql id="permissionSelectColumn">
+        p.permission_id,p.permission_name,p.permission_value,p.permission_type,p.permission_state,p.superior_id
+    </sql>
+    <select id="selectUserModelByUserName" resultMap="resultUserModelMap">
+        SELECT
+        <include refid="userSelectColumn"/>
+        FROM user
+        <where>
+            state = 0
+            <if test="userName!=null and userName!=''">
+                AND (phone = #{userName}
+                OR email = #{userName}
+                OR account = #{userName})
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findRoleByUserId" resultType="com.emis.security.model.RoleModel">
+        SELECT
+        <include refid="roleSelectColumn"/>
+        FROM user_role ur
+        LEFT JOIN role r
+        ON ur.role_id = r.role_id
+        WHERE r.state = 0
+        AND ur.user_id= #{user_id}
+    </select>
+
+    <select id="findPermissionByRoleId" resultType="com.emis.security.model.PermissionModel">
+        SELECT
+        <include refid="permissionSelectColumn"/>
+        FROM permission p
+        LEFT JOIN ( SELECT rp.permission_id
+        FROM role_permission rp
+        WHERE EXISTS ( SELECT ur.role_id
+        FROM user_role ur
+        WHERE ur.role_id = rp.role_id
+        AND user_id = #{user_id}
+        )
+        GROUP BY rp.permission_id
+        ) cc ON cc.permission_id = p.permission_id
+        AND p.permission_state = 0
+
+    </select>
+
+</mapper>
