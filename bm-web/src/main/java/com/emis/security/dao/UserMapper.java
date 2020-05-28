@@ -29,12 +29,11 @@ public interface UserMapper {
      */
     //UserModel selectUserModelByUserName(@Param("userName") String userName);
     @Select(" select user_id,account,password,user_name,phone,email,sex,id_card,state,create_time,update_time from user " +
-            "where state = 0 and (phone = #{userName} OR email = #{userName} or account = #{userName}) ")
+            "where state = 0 and (phone = #{userName} or email = #{userName} or account = #{userName}) ")
     @Results({
             @Result(property = "userId", column = "user_id"),
-            @Result(property = "roleModels", javaType = List.class, column = "user_id", many = @Many(select = "com" +
-                    ".emis.security.dao.findRoleByUserId")),
-            @Result(property = "permissionModels", javaType = List.class, column = "user_id", many = @Many(select = "com.emis.security.dao.findPermissionByRoleId"))
+            @Result(property = "roleModels", javaType = List.class, column = "user_id", many = @Many(select = "com.emis.security.dao.UserMapper.findRoleByUserId")),
+            @Result(property = "permissionModels", javaType = List.class, column = "user_id", many = @Many(select = "com.emis.security.dao.UserMapper.findPermissionByRoleId"))
     })
     UserModel selectUserModelByUserName(String userName);
 
