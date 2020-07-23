@@ -11,6 +11,13 @@ import java.util.Hashtable;
 
 /**
  * https://github.com/bytedeco/javacv
+ * https://github.com/bytedeco/javacv-examples
+ * https://repo1.maven.org/maven2/org/bytedeco/javacv-platform/
+ * <p>
+ * https://my.oschina.net/xshuai/blog/2873966/print
+ * https://www.kutu66.com/GitHub/article_122100
+ * https://www.cnblogs.com/letben/p/5662619.html
+ * <p>
  * 调用windows平台的摄像头窗口视频
  * java通过javacv获取windows的摄像头视频
  */
