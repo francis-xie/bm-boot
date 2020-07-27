@@ -13,8 +13,6 @@ import org.bytedeco.opencv.opencv_core.IplImage;
  */
 public class ScanCode {
     static OpenCVFrameGrabber grabber;
-    static boolean getcontent = false;
-    static Frame frame = null;
     static String retStr = null;
 
     public static void main(String[] args) throws Exception {
@@ -46,25 +44,20 @@ public class ScanCode {
     static class Thread1 extends Thread {
         @Override
         public void run() {
+            //一个非常不错的硬件加速组件，用于我们的预览...
+            CanvasFrame cFrame = new CanvasFrame("摄像预览", CanvasFrame.getDefaultGamma() / grabber.getGamma());
+            Frame frame = null;
             int i = 0;
-            while (true) {
-                if (getcontent) {// 窗口是否关闭,是否获取到内容，是则退出循环
-                    try {
-                        grabber.stop();// 停止抓取
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            try {
+                while (cFrame.isVisible() && (frame = grabber.grab()) != null) {
+                    if (cFrame.isVisible()) {
+                        //在预览中显示我们的框架
+                        cFrame.showImage(frame);
                     }
-                    break;
-                }
-                try {
-                    frame = grabber.grab();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                OpenCVFrameConverter.ToIplImage toIplImage = new OpenCVFrameConverter.ToIplImage();
-                IplImage image = toIplImage.convert(frame);
-                BufferedImage bufferedImage = iplToBufImgData(image);
-				
+
+                    OpenCVFrameConverter.ToIplImage toIplImage = new OpenCVFrameConverter.ToIplImage();
+                    IplImage image = toIplImage.convert(frame);
+                    BufferedImage bufferedImage = iplToBufImgData(image);
 				
 				/* //测试IplImage转BufferedImage是否成功 
 				 try { File file=new File("D://tpm111//"+i+++".jpg");
@@ -73,19 +66,23 @@ public class ScanCode {
 				 (IOException
 				  e1) { e1.printStackTrace(); }*/
 
-                retStr = ZxingHandler.getQrcodeFromPic(bufferedImage);
-                if (retStr != null && !"".equals(retStr)) {
-                    getcontent = true;
-                    System.out.println(retStr);
-                    break;
+                    retStr = ZxingHandler.getQrcodeFromPic(bufferedImage);
+                    if (retStr != null && !"".equals(retStr)) {
+                        System.out.println(retStr);
+                        // 是否获取到内容，是则退出循环
+                        break;
+                    }
+                    try {
+                        Thread.sleep(10);// 10毫秒刷新一次图像
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                try {
-                    Thread.sleep(10);// 10毫秒刷新一次图像
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
             try {
+                cFrame.dispose();
                 grabber.stop();
                 grabber.release();
             } catch (Exception e) {
