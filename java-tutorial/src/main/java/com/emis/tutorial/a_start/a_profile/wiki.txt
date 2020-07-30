@@ -1,0 +1,10 @@
+2020.07.29
+Java简介：https://www.liaoxuefeng.com/wiki/1252599548343744/1255876875896416
+目录
+Java简介
+    安装JDK
+    第一个Java程序
+    Java代码助手
+    使用IDE
+    使用IDE练习插件
+
